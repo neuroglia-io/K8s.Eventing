@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/DockerFile --tag eventing/gateway:1.0
+      run: docker build . --file /src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/DockerFile --tag eventing/gateway:1.0
