@@ -123,7 +123,7 @@ using(HttpClient httpClient = new HttpClient())
         }, 
         ContentMode.Structured, 
         new JsonEventFormatter());
-    using (HttpResponseMessage response = await httpClient.PostAsync("http://broker/events", content))
+    using (HttpResponseMessage response = await httpClient.PostAsync("http://broker/events/pub", content))
     {
         response.EnsureSuccessStatusCode();
         this.Logger.LogInformation("Cloud event published");
@@ -175,16 +175,16 @@ That's it! Start producing events and see them being dispatched to your service'
 ```C#
 using (HttpClient httpClient = new HttpClient())
 {
-    var options = new SubscriptionOptionsDto()
+    var createSubscriptionCommand = new CreateSubscriptionCommandDto
     {
-        Channel = "natss",
         Subject = "test",
-        Subscriber = new List<Uri>
+        Channel = "natss",
+        Subscribers = new List<Uri>()
         {
-            new Uri("http://broker/events")
+            new Uri($"http://my-consumer.my-namespace.svc.cluster.local")
         }
-    };
-    using (HttpResponseMessage response = await httpClient.PutAsJsonAsync("http://broker/events", options))
+    };;
+    using (HttpResponseMessage response = await httpClient.PostAsJsonAsync("http://broker/events/sub", options))
     {
         response.EnsureSuccessStatusCode();
         this.Logger.LogInformation("Subscription created");
