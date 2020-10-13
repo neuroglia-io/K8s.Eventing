@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Authors>Charles d'Avernas</Authors>
+    <Company>Neuroglia SPRL</Company>
+    <Copyright>Copyright © 2020 - Neuroglia SPRL. All rights reserved</Copyright>
+    <PackageTags>neuroglia, eventing, channel, nats, application</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>Neuroglia.K8s.Eventing.Channels.Nats.Application.xml</DocumentationFile>
+    <PackageProjectUrl>https://github.com/neuroglia-io/K8s.Eventing</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/neuroglia-io/K8s.Eventing</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>logo_white.jpg</PackageIcon>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Neuroglia.StartupTasks" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure\Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\Users\User\Pictures\logo_white.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

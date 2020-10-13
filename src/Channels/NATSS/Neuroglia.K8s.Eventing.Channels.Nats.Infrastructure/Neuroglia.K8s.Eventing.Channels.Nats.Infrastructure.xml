@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.ApplicationOptions">
+            <summary>
+            Represents the options used to configure the application
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.ApplicationOptions.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.ApplicationOptions"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.ApplicationOptions.Sink">
+            <summary>
+            Gets/sets the <see cref="T:System.Uri"/> of the sink <see cref="T:CloudNative.CloudEvents.CloudEvent"/> should be dispatched to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.ApplicationOptions.Natss">
+            <summary>
+            Gets/sets the options used to configure the <see cref="T:STAN.Client.IStanConnection"/>
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.NatssOptions">
+            <summary>
+            Represents the options used to configure the application's <see cref="T:STAN.Client.IStanConnection"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.NatssOptions.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.NatssOptions"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.NatssOptions.ClusterId">
+            <summary>
+            Gets/sets the id of the NATS Streaming Cluster to connect to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.NatssOptions.ClientId">
+            <summary>
+            Gets/sets the id of the client used to connect to the NATS Streaming server
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration.NatssOptions.Host">
+            <summary>
+            Gets/sets the address of the NATS Streaming server to connect to
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile">
+            <summary>
+            Represents a wrapper for a key/value based file
+            </summary>
+            <remarks>Code from <see href="https://www.codeproject.com/Articles/42872/Save-Key-Value-Pairs-in-a-File"/></remarks>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.Finalize">
+            <summary>
+            Destructs the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.Initialize(System.String,System.UInt16,System.UInt16)">
+            <summary>
+            Initializes the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile"/>
+            </summary>
+            <param name="fileName">The <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile"/>'s file name</param>
+            <param name="keySize">The <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile"/>'s key size, in bytes</param>
+            <param name="valueSize">The <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile"/>'s value size, in bytes</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.InsertKey(System.String,System.String,System.Boolean)">
+            <summary>
+            Insertys the specified key
+            </summary>
+            <param name="key">The key to insert</param>
+            <param name="value">The value to insert</param>
+            <param name="flag">A boolean representing the flag of the entry to insert</param>
+            <returns>The index of the newly inserted key</returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.FindKey(System.String)">
+            <summary>
+            Finds the index of the specified key
+            </summary>
+            <param name="key">The key to find</param>
+            <returns>The index of the specified key</returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.Key">
+            <summary>
+            Gets the current key
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.Value">
+            <summary>
+            Gets the current value
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.Flag">
+            <summary>
+            Gets the current flag
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile.Count">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile"/>'s entry count
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel">
+            <summary>
+            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel"/> interface
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel},STAN.Client.IStanConnection,System.Net.Http.IHttpClientFactory)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel"/>
+            </summary>
+            <param name="logger">The service used to perform logging</param>
+            <param name="stanConnection">The underlying NATS Streaming connection</param>
+            <param name="httpClientFactory">The service used to create new <see cref="T:System.Net.Http.HttpClient"/> instances</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.Logger">
+            <summary>
+            Gets the service used to perform logging
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.StanConnection">
+            <summary>
+            Gets the underlying NATS Streaming connection
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.EventFormatter">
+            <summary>
+            Gets the service used to format <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.HttpClient">
+            <summary>
+            Gets the <see cref="T:System.Net.Http.HttpClient"/> used to dispatch <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s to the gateway
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.SubscriptionRegistry">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.HashFile"/> used to store the subscription registry
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.Subscriptions">
+            <summary>
+            Gets a <see cref="T:System.Collections.Concurrent.ConcurrentDictionary`2"/> containing in-memory subscriptions
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.InitializeAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.SubscribeAsync(Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.SubscribeAsync(Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new subscription
+            </summary>
+            <param name="subscriptionOptions">The object used to configure the subscription to create</param>
+            <param name="persist">A boolean indicating whether or not to persist the subscription to the <see cref="P:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.SubscriptionRegistry"/></param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.UnsubscribeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.PublishAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.GetStanSubjectFor(System.String)">
+            <summary>
+            Gets the NATS Streaming subject for the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/> subject
+            </summary>
+            <param name="cloudEventSubject">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> subject to get the NATS Streaming subject for</param>
+            <returns>The NATS Streaming subject for the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/> subject</returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.CreateEventHandlerFor(System.String)">
+            <summary>
+            Creates a new handler for handling the messages of the specified subscription
+            </summary>
+            <param name="subscriptionId">The id of the subscription to handle the messages for</param>
+            <returns>A new handler for handling the messages of the specified subscription</returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel"/>
+            </summary>
+            <param name="disposing">A boolean indicating whether or not the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel"/> is being disposed of</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.EventChannel.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel">
+            <summary>
+            Defines the fundamentals of a service used to wrap a NATS Streaming channel
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel.InitializeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Initializes the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel"/>
+            </summary>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel.SubscribeAsync(Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto,System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel"/>
+            </summary>
+            <param name="subscriptionOptions">The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto"/> used to configure the subscription to create</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel.UnsubscribeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Unsubscribes from the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel"/>
+            </summary>
+            <param name="subscriptionId">The id of the subscription to delete</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel.PublishAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+            <summary>
+            Publishes the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to the <see cref="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services.IEventChannel"/>
+            </summary>
+            <param name="e">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to publish</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.StringExtensions">
+            <summary>
+            Defines extensions for <see cref="T:System.String"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.StringExtensions.GenerateRandomString(System.Int32)">
+            <summary>
+            Generates a random string of the specified length
+            </summary>
+            <param name="length">The length of the string to generate</param>
+            <returns>A new random string of the specified length</returns>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.SubscriptionOptionsDtoExtensions">
+            <summary>
+            Defines extensions for <see cref="T:Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.SubscriptionOptionsDtoExtensions.ToStanSubscriptionOptions(Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto)">
+            <summary>
+            Converts the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto"/> to a <see cref="T:STAN.Client.StanSubscriptionOptions"/>
+            </summary>
+            <param name="subscriptionOptions">The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto"/> to convert</param>
+            <returns>The resulting <see cref="T:STAN.Client.StanSubscriptionOptions"/></returns>
+        </member>
+    </members>
+</doc>

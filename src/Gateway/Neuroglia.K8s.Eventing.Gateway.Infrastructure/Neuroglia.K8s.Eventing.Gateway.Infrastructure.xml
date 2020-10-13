@@ -1,0 +1,644 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Neuroglia.K8s.Eventing.Gateway.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel">
+            <summary>
+            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/> interface
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel},System.Net.Http.IHttpClientFactory,System.String,System.Uri)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel"/>
+            </summary>
+            <param name="logger">The service used to perform logging</param>
+            <param name="httpClientFactory">The service used to create <see cref="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.HttpClient"/> instances</param>
+            <param name="name">The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel"/>'s name</param>
+            <param name="address">The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel"/>'s remote address</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.Logger">
+            <summary>
+            Gets the service used to perform logging
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.HttpClient">
+            <summary>
+            Gets the <see cref="T:System.Net.Http.HttpClient"/> used to request the remote channel
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.Address">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.SubscribeAsync(Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.UnsubscribeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.PublishAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel"/>
+            </summary>
+            <param name="disposing">A boolean indicating whether or not the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel"/> is being disposed of</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions">
+            <summary>
+            Represents the options used to configure the application
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions.Pod">
+            <summary>
+            Gets/sets the options used to configure the application's pod
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.PodOptions">
+            <summary>
+            Represents the options used to configure the application's pod
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.PodOptions.Namespace">
+            <summary>
+            Gets/sets the namespace the application's pod resides in
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel">
+            <summary>
+            Defines the fundamentals of an eventing channel
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel.Name">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>'s name
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel.Address">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>'s remote address
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel.SubscribeAsync(Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new subscription
+            </summary>
+            <param name="subscriptionOptions">The object used to configure the subscription to create</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel.UnsubscribeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes an existing subscription
+            </summary>
+            <param name="subscriptionId">The id of the subscription to remove</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel.PublishAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+            <summary>
+            Publishes the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/>
+            </summary>
+            <param name="e">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to publish</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription">
+            <summary>
+            Defines the fundamentals of an eventing subscription
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription.Id">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>'s id
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription.Subject">
+            <summary>
+            Gets/sets <see cref="T:CloudNative.CloudEvents.CloudEvent"/> subject the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> applies to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription.Type">
+            <summary>
+            Gets/sets <see cref="T:CloudNative.CloudEvents.CloudEvent"/> type the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> applies to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription.Source">
+            <summary>
+            Gets/sets <see cref="T:CloudNative.CloudEvents.CloudEvent"/> source the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> applies to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription.ChannelName">
+            <summary>
+            Gets/sets the name of the channel the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> applies to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription.IsChannelBound">
+            <summary>
+            Gets a boolean indicating whether or not the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> is bound to an <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>, meaning that it has been explicitly created on the latter
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription.Subscribers">
+            <summary>
+            Gets/sets an <see cref="T:System.Collections.Generic.IList`1"/> containing the addresses of all the subscribers bound to the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager">
+            <summary>
+            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager"/> interface
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager})">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager"/>
+            </summary>
+            <param name="serviceProvider">The current <see cref="T:System.IServiceProvider"/></param>
+            <param name="logger">The service used to perform logging</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.ServiceProvider">
+            <summary>
+            Gets the current <see cref="T:System.IServiceProvider"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.Logger">
+            <summary>
+            Gets the service used to perform logging
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.Channels">
+            <summary>
+            Gets a <see cref="T:System.Collections.Concurrent.ConcurrentDictionary`2"/> containing the registered <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.RegisterChannel(System.String,System.Uri)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.TryGetChannel(System.String,Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.UnregisterChannel(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager"/>
+            </summary>
+            <param name="disposing">A boolean indicating whether or not the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager"/> is being disposed of</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher">
+            <summary>
+            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ICloudEventDispatcher"/> interface
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher},Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager,System.Net.Http.HttpClient)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher"/>
+            </summary>
+            <param name="logger">The service used to perform logging</param>
+            <param name="subscriptionManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+            <param name="httpClient">The <see cref="T:System.Net.Http.HttpClient"/> used to dispatch <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s to subscribers</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.Logger">
+            <summary>
+            Gets the service used to perform logging
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.SubscriptionManager">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.HttpClient">
+            <summary>
+            Gets the <see cref="T:System.Net.Http.HttpClient"/> used to dispatch <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s to subscribers
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.DispatchAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager">
+            <summary>
+            Defines the fundamentals of a service used to manage <see cref="T:CloudNative.CloudEvents.CloudEvent"/> <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Channel"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager.RegisterChannel(System.String,System.Uri)">
+            <summary>
+            Registers a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>
+            </summary>
+            <param name="name">The name of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/> to register</param>
+            <param name="address">The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>'s remote address</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager.UnregisterChannel(System.String)">
+            <summary>
+            Unregisters the specified <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>
+            </summary>
+            <param name="name">The name of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/> to unregister</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager.TryGetChannel(System.String,Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel@)">
+            <summary>
+            Attempts to get the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/> with the specified name
+            </summary>
+            <param name="name">The name of the channel to get</param>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/> with the specified name</param>
+            <returns>A boolean indicating whether or not the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/> with the specified name exists</returns>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ICloudEventDispatcher">
+            <summary>
+            Defines the fundamentals of a service used to dispatch <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s to subscribers
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ICloudEventDispatcher.DispatchAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+            <summary>
+            Dispatches the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to its subscribers
+            </summary>
+            <param name="cloudEvent">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to dispatch</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IResourceController">
+            <summary>
+            Defines the fundamentals of a service used to manage eventing-related <see cref="T:Neuroglia.K8s.CustomResource"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IResourceController.InitializeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Initializes the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IResourceController"/>
+            </summary>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager">
+            <summary>
+            Defines the fundamentals of a service used to manage <see cref="T:CloudNative.CloudEvents.CloudEvent"/> subscriptions
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager.RegisterSubscription(System.String,System.String,System.String,System.Uri,System.String,System.Collections.Generic.IEnumerable{System.Uri})">
+            <summary>
+            Creates a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>
+            </summary>
+            <param name="id">The id of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> to create</param>
+            <param name="subject">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> subject the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/> applies to</param>
+            <param name="type">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> type the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/> applies to</param>
+            <param name="source">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> source the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/> applies to</param>
+            <param name="channelName">The name of the channel the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/> is bound to</param>
+            <param name="subscribers">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing the <see cref="T:System.Uri"/>s of all the subscribers</param>
+            <returns>The newly created <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager.UnregisterSubscription(System.String)">
+            <summary>
+            Deletes an existing <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>
+            </summary>
+            <param name="id">The id of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> to delete</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager.GetSubscriptionById(System.String)">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> with the specified id
+            </summary>
+            <param name="id">The id of the subscription to get</param>
+            <returns>The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> with the specified id</returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager.GetSubscriptionsBySubject(System.String)">
+            <summary>
+            Gets all the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s to the specified subjet
+            </summary>
+            <param name="subject">The subject for which to get the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+            <returns>A new <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing all the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s to the specified subject</returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager.GetSubscriptionsByEventType(System.String)">
+            <summary>
+            Gets all the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s to the specified event type
+            </summary>
+            <param name="eventType">The event type for which to get the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+            <returns>A new <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing all the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s to the specified event type</returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager.GetSubscriptionsByEventSource(System.Uri)">
+            <summary>
+            Gets all the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s to the specified event source
+            </summary>
+            <param name="eventSource">The event source for which to get the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+            <returns>A new <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing all the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s to the specified event source</returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager.GetSubscriptionsByChannel(System.String)">
+            <summary>
+            Gets all the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s to the specified channel name
+            </summary>
+            <param name="channelName">The name of the channel for which to get the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+            <returns>A new <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing all the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s to the specified channel name</returns>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController">
+            <summary>
+            Represents the service used to manage eventing-related  <see cref="T:Neuroglia.K8s.CustomResource"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController},Microsoft.Extensions.Options.IOptions{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions},k8s.IKubernetes,Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager,Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController"/>
+            </summary>
+            <param name="serviceProvider">The current <see cref="T:System.IServiceProvider"/></param>
+            <param name="logger">The service used to perform logging</param>
+            <param name="options">The current <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions"/></param>
+            <param name="kubernetesClient">The service used to interact with the Kubernetes API</param>
+            <param name="channelManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s</param>
+            <param name="subscriptionManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.ServiceProvider">
+            <summary>
+            Gets the current <see cref="T:System.IServiceProvider"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.Logger">
+            <summary>
+            Gets the service used to perform logging
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.Options">
+            <summary>
+            Gets the current <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.KubernetesClient">
+            <summary>
+            Gets the service used to interact with the Kubernetes API
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.ChannelManager">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.SubscriptionManager">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.EventWatchers">
+            <summary>
+            Gets an <see cref="T:System.Collections.Generic.IList`1"/> containing all registered <see cref="T:Neuroglia.K8s.ICustomResourceEventWatcher"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.InitializeAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.InitializeChannelsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Initializes all <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s
+            </summary>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.InitializeSubscriptionsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Initializes all <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s
+            </summary>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.OnChannelEvent(k8s.WatchEventType,Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Handles a <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> event
+            </summary>
+            <param name="e">The type of event to handle</param>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> the event to handle applies to</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.DeployChannelAsync(Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Deploys the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            </summary>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> to deploy</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.CreateChannelDeploymentAsync(Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Creates a new <see cref="T:k8s.Models.V1Deployment"/> for the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            </summary>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> to deploy</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.CreateChannelServiceAsync(Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Creates a new <see cref="T:k8s.Models.V1Service"/> for the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            </summary>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> to deploy</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.RegisterChannel(Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Registers the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            </summary>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> to register</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.DeleteChannelAsync(Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Deletes an existing <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            </summary>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> to delete</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.UnregisterChannel(Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Unregisters the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            </summary>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> to unregister</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.DeleteChannelServiceAsync(Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Deletes the <see cref="T:k8s.Models.V1Service"/> for the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            </summary>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> to delete</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.DeleteChannelDeploymentAsync(Neuroglia.K8s.Eventing.Resources.Channel)">
+            <summary>
+            Deletes the <see cref="T:k8s.Models.V1Deployment"/> for the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            </summary>
+            <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> to delete</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.OnSubscriptionEvent(k8s.WatchEventType,Neuroglia.K8s.Eventing.Resources.Subscription)">
+            <summary>
+            Handles a <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/> event
+            </summary>
+            <param name="e">The type of event to handle</param>
+            <param name="subscription">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/> the event to handle applies to</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.SubscribeToChannelAsync(Neuroglia.K8s.Eventing.Resources.Subscription)">
+            <summary>
+            Creates the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/> on the <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> it applies to
+            </summary>
+            <param name="subscription">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/> to create</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.RegisterSubscription(Neuroglia.K8s.Eventing.Resources.Subscription)">
+            <summary>
+            Registers the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>
+            </summary>
+            <param name="subscription">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/> to register</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.UnsubscribeFromChannelAsync(Neuroglia.K8s.Eventing.Resources.Subscription)">
+            <summary>
+            Deletes the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/> from the <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/> it applies to
+            </summary>
+            <param name="subscription">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/> to delete</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.UnregisterSubscription(Neuroglia.K8s.Eventing.Resources.Subscription)">
+            <summary>
+            Unregisters the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>
+            </summary>
+            <param name="subscription">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/> to unregister</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.OnBrokerEvent(k8s.WatchEventType,Neuroglia.K8s.Eventing.Resources.Broker)">
+            <summary>
+            Handles a <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/> event
+            </summary>
+            <param name="e">The type of event to handle</param>
+            <param name="broker">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/> the event to handle applies to</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.DeployBrokerAsync(Neuroglia.K8s.Eventing.Resources.Broker)">
+            <summary>
+            Deploys the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
+            </summary>
+            <param name="broker">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/> to deploy</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.CreateBrokerExternalNameServiceAsync(Neuroglia.K8s.Eventing.Resources.Broker)">
+            <summary>
+            Creates an external name <see cref="T:k8s.Models.V1Service"/> for the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
+            </summary>
+            <param name="broker">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/> to deploy</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.CreateBrokerVirtualServiceAsync(Neuroglia.K8s.Eventing.Resources.Broker)">
+            <summary>
+            Creates a virtual <see cref="T:k8s.Models.V1Service"/> for the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
+            </summary>
+            <param name="broker">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/> to deploy</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.DeleteBrokerAsync(Neuroglia.K8s.Eventing.Resources.Broker)">
+            <summary>
+            Deletes the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
+            </summary>
+            <param name="broker">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/> to delete</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.DeleteBrokerVirtualServiceAsync(Neuroglia.K8s.Eventing.Resources.Broker)">
+            <summary>
+            Deletes the external name <see cref="T:k8s.Models.V1Service"/> for the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
+            </summary>
+            <param name="broker">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/> to delete</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.DeleteBrokerExternalNameServiceAsync(Neuroglia.K8s.Eventing.Resources.Broker)">
+            <summary>
+            Deletes the virtual <see cref="T:k8s.Models.V1Service"/> for the specified <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
+            </summary>
+            <param name="broker">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/> to delete</param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController"/>
+            </summary>
+            <param name="disposing">A boolean indicating whether or not the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController"/> is being disposed of</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ResourceController.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager">
+            <summary>
+            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager"/> interface
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager})">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager"/>
+            </summary>
+            <param name="logger">The service used to perform logging</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.Logger">
+            <summary>
+            Gets the service used to perform logging
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.Subscriptions">
+            <summary>
+            Gets an <see cref="T:System.Collections.Generic.IReadOnlyCollection`1"/> containing the registered <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.RegisterSubscription(System.String,System.String,System.String,System.Uri,System.String,System.Collections.Generic.IEnumerable{System.Uri})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.UnregisterSubscription(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.GetSubscriptionById(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.GetSubscriptionsBySubject(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.GetSubscriptionsByEventType(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.GetSubscriptionsByEventSource(System.Uri)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.SubscriptionManager.GetSubscriptionsByChannel(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription">
+            <summary>
+            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/> interface
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription.#ctor(System.String,System.String,System.String,System.Uri,System.String,System.Collections.Generic.IEnumerable{System.Uri})">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/>
+            </summary>
+            <param name="id">The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/>'s id</param>
+            <param name="subject">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> subject the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/> applies to</param>
+            <param name="type">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> type the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/> applies to</param>
+            <param name="source">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> source the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/> applies to</param>
+            <param name="channelName">The name of the channel the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription"/> is bound to</param>
+            <param name="subscribers">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing the <see cref="T:System.Uri"/>s of all the subscribers</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription.Id">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription.Subject">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription.Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription.Source">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription.ChannelName">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription.IsChannelBound">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Subscription.Subscribers">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

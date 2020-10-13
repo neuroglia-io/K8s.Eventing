@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Authors>Charles d'Avernas</Authors>
+    <Company>Neuroglia SPRL</Company>
+    <Copyright>Copyright © 2020 - Neuroglia SPRL. All rights reserved</Copyright>
+    <PackageTags>neuroglia, eventing, channel, nats, infrastructure</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.xml</DocumentationFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/neuroglia-io/K8s.Eventing</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/neuroglia-io/K8s.Eventing</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>logo_white.jpg</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Neuroglia.CloudEvents" Version="1.0.0" />
+    <PackageReference Include="STAN.Client" Version="0.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Gateway\Neuroglia.K8s.Eventing.Gateway.Integration\Neuroglia.K8s.Eventing.Gateway.Integration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\Users\User\Pictures\logo_white.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

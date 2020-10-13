@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: neuroglia-eventing
+  labels:
+    name: neuroglia-eventing
+    istio-injection: enabled
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: neuroglia-eventing
+  annotations:
+    traffic.sidecar.istio.io/excludeOutboundIPRanges: 10.96.0.1/32
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+      version: "1.0"
+  template:
+    metadata:
+      labels:
+        app: gateway
+        version: "1.0"
+      annotations:
+        traffic.sidecar.istio.io/excludeOutboundIPRanges: 10.96.0.1/32
+    spec:
+      containers:
+      - name: gateway
+        image: neuroglia.io/eventing/gateway:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http-gateway
+        env:
+        - name: ASPNETCORE_URLS 
+          value: http://+:80
+        - name: POD__NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+  namespace: neuroglia-eventing
+  labels: 
+    app: gateway
+spec:
+  ports:
+  - port: 80
+    name: http-gateway
+  selector:
+    app: gateway
