@@ -6,12 +6,14 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Sources/Services/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/Neuroglia.K8s.Eventing.Gateway.Api.csproj", "Sources/Services/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/"]
-COPY ["Sources/BuildingBlocks/Neuroglia.K8s/Neuroglia.K8s.csproj", "Sources/BuildingBlocks/Neuroglia.K8s/"]
-COPY ["Sources/Services/Gateway/Neuroglia.K8s.Eventing.Gateway.Infrastructure/Neuroglia.K8s.Eventing.Gateway.Infrastructure.csproj", "Sources/Services/Gateway/Neuroglia.K8s.Eventing.Gateway.Infrastructure/"]
-RUN dotnet restore "Sources/Services/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/Neuroglia.K8s.Eventing.Gateway.Api.csproj"
+COPY ["src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/Neuroglia.K8s.Eventing.Gateway.Api.csproj", "src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/"]
+COPY ["src/Gateway/Neuroglia.K8s.Eventing.Gateway.Application/Neuroglia.K8s.Eventing.Gateway.Application.csproj", "src/Gateway/Neuroglia.K8s.Eventing.Gateway.Application/"]
+COPY ["src/Gateway/Neuroglia.K8s.Eventing.Gateway.Infrastructure/Neuroglia.K8s.Eventing.Gateway.Infrastructure.csproj", "src/Gateway/Neuroglia.K8s.Eventing.Gateway.Infrastructure/"]
+COPY ["src/Gateway/Neuroglia.K8s.Eventing.Gateway.Integration/Neuroglia.K8s.Eventing.Gateway.Integration.csproj", "src/Gateway/Neuroglia.K8s.Eventing.Gateway.Integration/"]
+COPY ["src/BuildingBlocks/Neuroglia.K8s.Eventing/Neuroglia.K8s.Eventing.csproj", "src/BuildingBlocks/Neuroglia.K8s.Eventing/"]
+RUN dotnet restore "src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/Neuroglia.K8s.Eventing.Gateway.Api.csproj"
 COPY . .
-WORKDIR "/src/Sources/Services/Gateway/Neuroglia.K8s.Eventing.Gateway.Api"
+WORKDIR "/src/src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api"
 RUN dotnet build "Neuroglia.K8s.Eventing.Gateway.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish

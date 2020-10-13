@@ -8,10 +8,8 @@
     <Copyright>Copyright © 2020 - Neuroglia SPRL. All rights reserved</Copyright>
     <PackageTags>neuroglia, eventing, gateway, integration</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/neuroglia-io/K8s.Eventing</PackageProjectUrl>
-    <PackageIcon>logo_white.jpg</PackageIcon>
     <RepositoryUrl>https://github.com/neuroglia-io/K8s.Eventing</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
@@ -19,16 +17,5 @@
   <PropertyGroup>
     <DocumentationFile>Neuroglia.K8s.Eventing.Gateway.Integration.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\..\..\Users\User\Pictures\logo_white.jpg">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
 
 </Project>

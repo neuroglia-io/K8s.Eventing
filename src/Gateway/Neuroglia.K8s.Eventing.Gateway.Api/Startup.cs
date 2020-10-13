@@ -1,3 +1,4 @@
+using AutoMapper;
 using CloudNative.CloudEvents;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -53,6 +54,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Api
             services.AddSingleton(Options.Create(this.ApplicationOptions));
             services.AddKubernetesClient();
             services.AddMediatR(typeof(PublishCloudEventToChannelCommand).Assembly);
+            services.AddAutoMapper(typeof(PublishCloudEventToChannelCommand).Assembly);
             services.AddSingleton<ISubscriptionManager, SubscriptionManager>();
             services.AddSingleton<IChannelManager, ChannelManager>();
             services.AddSingleton<IResourceController, ResourceController>();

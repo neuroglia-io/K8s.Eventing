@@ -9,9 +9,7 @@
     <Copyright>Copyright © 2020 - Neuroglia SPRL. All rights reserved</Copyright>
     <PackageTags>neuroglia, eventing, gateway, application</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageIcon>logo_white.jpg</PackageIcon>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -24,18 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\Neuroglia.AutoMapper\Neuroglia.AutoMapper.csproj" />
     <ProjectReference Include="..\Neuroglia.K8s.Eventing.Gateway.Infrastructure\Neuroglia.K8s.Eventing.Gateway.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\..\..\Users\User\Pictures\logo_white.jpg">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

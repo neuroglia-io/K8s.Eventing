@@ -157,7 +157,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services
                     .HasBeenRedelivered(e.Message.Redelivered)
                     .Build();
                 CloudEventContent cloudEventContent = new CloudEventContent(cloudEvent, ContentMode.Structured, new JsonEventFormatter());
-                using(HttpResponseMessage response = await this.HttpClient.PostAsync(string.Empty, cloudEventContent))
+                using(HttpResponseMessage response = await this.HttpClient.PostAsync("pub", cloudEventContent))
                 {
                     string content = await response.Content?.ReadAsStringAsync();
                     if (!response.IsSuccessStatusCode)

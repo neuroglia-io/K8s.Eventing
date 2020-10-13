@@ -1,0 +1,20 @@
+apiVersion: eventing.k8s.neuroglia.io/v1alpha1
+kind: Channel
+metadata:
+  name: natss
+  namespace: neuroglia-eventing
+  labels:
+    name: natss
+spec:
+  container: 
+    name: natss
+    image: neuroglia.io/eventing/channels/natss:1.0
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 80
+      name: http
+    env:
+    - name: NATSS__CLUSTERID
+      value: neuroglia-eventing
+    - name: NATSS__HOST
+      value: nats://nats-streaming.natss.svc.cluster.local:4222

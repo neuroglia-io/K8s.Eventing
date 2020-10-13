@@ -514,7 +514,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
             try
             {
                 this.Logger.LogInformation("Creating a new istio virtual service for the broker with name '{resourceName}'...", broker.Name());
-                V1ObjectMeta metadata = new V1ObjectMeta(name: $"{broker.Name()}-vs");
+                V1ObjectMeta metadata = new V1ObjectMeta(name: $"{broker.Name()}-vs", namespaceProperty: broker.Namespace());
                 VirtualServiceSpec spec = new VirtualServiceSpec()
                 {
                     Hosts = new List<string>() { broker.Name() },
@@ -557,7 +557,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
             try
             {
                 this.Logger.LogInformation("Updating the status of the broker with name '{resourceName}'...", broker.Name());
-                broker.Status = new BrokerStatus() { Url = $"{virtualService.Name()}.{virtualService.Namespace()}.svc.cluster.{virtualService.Metadata.ClusterName}" };
+                broker.Status = new BrokerStatus() { Url = $"http://{broker.Name()}.{broker.Namespace()}.svc.cluster.local" };
                 await this.KubernetesClient.ReplaceNamespacedCustomObjectStatusAsync(broker, broker.ApiGroup(), broker.ApiGroupVersion(), broker.Namespace(), BrokerDefinition.PLURAL, broker.Name());
                 this.Logger.LogInformation("The status of the broker with name '{resourceName}' has been successfully updated", broker.Name());
             }
