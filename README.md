@@ -101,7 +101,7 @@ If the installation was successfull, you should see a similar result:
 
 ### Publishing a CloudEvent
 
-Whenever one of your service needs to publish a CloudEvent, make an HTTP POST request to the 'pub' endpoint url of your namespaced broker, which is always equal to '**http://{channelName}.{namespace}.svc.cluster.{clusterName}/events/pub**' (fully qualified service name) or '**http://{channelName}/events/pub**' (namespaced service name).
+Whenever one of your service needs to publish a CloudEvent, make an HTTP POST request to the 'pub' endpoint url of your namespaced broker, which is always equal to '**http://{brokerName}.{namespace}.svc.cluster.{clusterName}/events/pub**' (fully qualified service name) or '**http://{brokerName}/events/pub**' (namespaced service name).
 
 If you are not sure about your broker's url, you can execute the following command:
 
@@ -172,7 +172,7 @@ That's it! Start producing events and see them being dispatched to your service'
 
 #### Programatically
 
-Whenever one of your service needs to create a new subscription programatically, make an HTTP POST request to the 'sub' endpoint url of your namespaced broker, which is always equal to '**http://{channelName}.{namespace}.svc.cluster.{clusterName}/events/sub**' (fully qualified service name) or '**http://{channelName}/events/sub**' (namespaced service name).
+Whenever one of your service needs to create a new subscription programatically, make an HTTP POST request to the 'sub' endpoint url of your namespaced broker, which is always equal to '**http://{brokerName}.{namespace}.svc.cluster.{clusterName}/events/sub**' (fully qualified service name) or '**http://{brokerName}/events/sub**' (namespaced service name).
 
 ```C#
 using (HttpClient httpClient = new HttpClient())
