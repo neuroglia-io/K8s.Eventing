@@ -101,7 +101,7 @@ If the installation was successfull, you should see a similar result:
 
 ### Publishing a CloudEvent
 
-Whenever one of your service needs to publish a CloudEvent, make an HTTP POST request to the 'pub' url of your namespaced broker, which is always equal to '**http://{channelName}.{namespace}.svc.cluster.{clusterName}/events/pub**' (fully qualified service name) or '**http://{channelName}/events/pub**' (namespaced service name).
+Whenever one of your service needs to publish a CloudEvent, make an HTTP POST request to the 'pub' endpoint url of your namespaced broker, which is always equal to '**http://{channelName}.{namespace}.svc.cluster.{clusterName}/events/pub**' (fully qualified service name) or '**http://{channelName}/events/pub**' (namespaced service name).
 
 If you are not sure about your broker's url, you can execute the following command:
 
