@@ -192,7 +192,7 @@ using (HttpClient httpClient = new HttpClient())
 }
 ```
 
-##Examples
+## Examples
 
 There is an extensive example in the [examples directory](https://github.com/neuroglia-io/K8s.Eventing/tree/master/examples)
 
