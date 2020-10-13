@@ -27,7 +27,7 @@ jobs:
         with:
           push: true
           repository: neuroglia/neuroglia.k8s.eventing
-          username: ${{ DOCKER_USERNAME }}
-          password: ${{ DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
           path: /src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/
           labels: eventing/gateway:1.0
