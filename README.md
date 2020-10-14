@@ -29,6 +29,10 @@ This repository contains the result of our quest. We hope it can be as usefull t
 
 Happy coding!
 
+# Under the hood
+
+![Architectural overview](overview.png)
+
 # Usage
 
 ## 1. Install the Custom Resource Definitions (CRDs)
