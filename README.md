@@ -31,6 +31,8 @@ Happy coding!
 
 # Under the hood
 
+Below is a schema providing a quick architectural overview of Neuroglia K8s Eventing:
+
 ![Architectural overview](overview.png)
 
 # Usage
