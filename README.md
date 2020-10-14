@@ -25,7 +25,7 @@ An open source .NET CORE 3.1 implementation of a cloud event gateway for Kuberne
 
 # Motivation
 
-In the context of the development of our new cloud native POS Management solution, which heavily relies on integration events, we wanted to abstract away from our numerous microservices the burden of eventing-specific implementations, which were tightly coupled with vendor-specific code.
+In the context of the development of our new cloud native POS Management solution, which heavily relies on integration events, we wanted to abstract away from our numerous microservices the burden of eventing-specific implementations, which were tightly coupled to vendor-specific code.
 
 Furthermore, shortly after discovering and falling in love with [Istio](https://istio.io/) - which already abstracts a lot of concerns away from applications (ex: tracing, metrics, logging, ...) -, we decided we needed to be able to leverage the [traffic shaping features](https://istio.io/latest/docs/concepts/traffic-management/) of that beautiful software by applying it to eventing.
 
