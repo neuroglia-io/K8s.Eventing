@@ -23,7 +23,7 @@ We then found the [CloudEvent specification](https://github.com/cloudevents/spec
 - Subscriptions/Triggers and the like could only be created declaratively, that is thanks to an applied yaml file on Kurbenetes. Rare are the use cases where it isn't enough, but they exist (autonomous replicas of a statefull service, for instance).
 - Subscriptions were left to their bare minimum: there was no way to, say, create a durable subscription to a given subject, or to replay a whole stream of events in case of the critical failure of a service. In fact, I don't even understand why [Knative](https://knative.dev/docs/eventing/), for example, relies on [NATS Streaming](https://docs.nats.io/nats-streaming-concepts/intro) rather than [NATS](https://nats.io/), for it does not seem to leverage the persistence mechanisms it offers, at least not at a consumer level.
 
-We then took the decision to use the incredible possibilities Kubernetes and Istio offer to make the [CloudEvent](https://github.com/cloudevents/spec) Gateway that could solve all of our problems, in the most simple and unambitious way possible. 
+We then took the decision to use the incredible possibilities [Kubernetes](https://kubernetes.io/) and [Istio](https://istio.io/) offer to make the [CloudEvent](https://github.com/cloudevents/spec) Gateway that could solve all of our problems, in the most simple and unambitious way possible. 
 
 This repository contains the result of our quest. We hope it can be as usefull to you as it has been to us.
 
