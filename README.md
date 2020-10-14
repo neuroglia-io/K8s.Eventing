@@ -4,7 +4,7 @@ An Open source .NET CORE 3.1 implementation of a cloud event gateway for Kuberne
 * * *
 **There is an issue with our Docker image registry, which is unavailable at the moment.**
 
-**If you wish to test the solution, please clone the repository and build the following images locally before applying the eventing-core.yaml and eventing-channel-natss.yaml files:**
+**If you wish to test the solution, please clone the repository and build the following images locally before applying the [eventing-core.yaml](https://github.com/neuroglia-io/K8s.Eventing/blob/main/deployment/eventing-core.yaml) and [eventing-channel-natss.yaml](https://github.com/neuroglia-io/K8s.Eventing/blob/main/deployment/eventing-channel-natss.yaml) files:**
 - [Gateway image](https://github.com/neuroglia-io/K8s.Eventing/blob/main/src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/Dockerfile)
 - [NATSS Channel image](https://github.com/neuroglia-io/K8s.Eventing/blob/main/src/Channels/NATSS/Neuroglia.K8s.Eventing.Channels.Nats.Api/Dockerfile)
 * * *
