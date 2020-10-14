@@ -198,6 +198,77 @@ using (HttpClient httpClient = new HttpClient())
 
 There is an extensive example in the [examples directory](https://github.com/neuroglia-io/K8s.Eventing/tree/master/examples)
 
+### Running the example
+
+### 1. Build the GatewayClient's docker image
+
+```powershell
+git clone git@github.com:neuroglia-io/K8s.Eventing.git
+docker build -f "{localPath}\neuroglia.k8s.eventing\examples\gatewayclient\dockerfile" "{localPath}\neuroglia.k8s.eventing"
+```
+
+### 2. Deploy the GatewayClient to Kubernetes
+
+```powershell
+kubectl apply -f "{localPath}\neuroglia.k8s.eventing\examples\gatewayclient\eventing-test.yaml"
+```
+
+### 3. Verify that the GatewayClient's pod is running
+
+```powershell
+kubectl get pods -n eventing-test
+```
+
+### 4. Start testing
+
+#### Creating a new subscription:
+
+Make a POST request to 'http://localhost/events/sub?subject=MySubject'. 
+
+Keep the returned subscription's id if you wish to delete it afterwards.
+
+#### Deleting an existing subscription:
+
+Make a DELETE request to 'http://localhost/events/unsub?subscriptionId=MySubscriptionId'
+
+#### Publishing a new cloud event:
+
+Make a POST request to 'http://localhost/events/pub' with an **'application/cloudevents+json'** payload such as the following:
+
+```json
+{
+    "type": "io.neuroglia.test",
+    "source": "/test",
+    "subject": "test",
+    "id": "testid",
+    "data": "{ \"message\": \"hello world\"",
+    "datacontentype": "application/json"
+}
+```
+
+#### Verifying that all is working as expected:
+
+Get the name of the pod the GatewayClient is running on:
+
+```powershell
+kubectl get pods -n eventing-test
+```
+
+Display the logs of the GatewayClient pod:
+
+```powershell
+kubectl logs -f {myPodId} -n eventing-test gatewayclient
+```
+
+You should see a log line such as **'Received a cloud event with type '{type}' and subject '{subject}''** every time you publish a new cloud event with a subject you have subscribed to.
+If you delete the subscription, you should not receive any cloud events anymore.
+
+### Cleaning up
+
+```powershell
+kubectl delete -f "{localPath}\neuroglia.k8s.eventing\examples\gatewayclient\eventing-test.yaml"
+```
+
 # Contributing
 
 Please see [CONTRIBUTING.md](https://github.com/neuroglia-io/K8s.Eventing/blob/master/CONTRIBUTING.md) for instructions on how to contribute.
