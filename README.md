@@ -9,6 +9,26 @@ An open source .NET CORE 3.1 implementation of a cloud event gateway for Kuberne
 - [NATSS Channel image](https://github.com/neuroglia-io/K8s.Eventing/blob/main/src/Channels/NATSS/Neuroglia.K8s.Eventing.Channels.Nats.Api/Dockerfile)
 * * *
 
+# Motivation
+
+In the context of the development of our new cloud native POS Management solution, which heavily relies on integration events, we wanted to abstract away from our numerous microservices the burden of eventing-specific implementations, which were tightly coupled with vendor-specific code.
+
+Furthermore, shortly after discovering and falling in love with Istio - which already abstracts a lot of concerns away from applications (ex: tracing, metrics, logging, ...) -, we decided we needed to be able to leverage the traffic shaping features of that beautiful software by applying it to eventing.
+
+The problem with brokers such as NATS, RabbitMQ and Kafka is that events (messages) are usually transfered thanks to some kind of application layer on top of an opaque TCP connection, which makes it near impossible to shape traffic based on attributes such as message subject and would have tightly coupled whatever solution we may have come up with to vendor-specific implementations, thus taking away from us the freedom to change those at will, according to use cases.
+
+We then found the CloudEvent specification... In short, the latter "is a specification for describing event data in common formats to provide interoperability across services, platforms and systems". Because they are best used in association with well-known communication technologies such as HTTP and/or GRPC, using CloudEvents made traffic shaping with Istio (or other meshes) theoretically possible, thus solving the problems described above. The only thing we were lacking to make it happen at that point was a gateway, meaning a software which could consume cloud events, optionally publishing them to underlying sinks such as NATS or Kafka, and would route them to subscribers.
+
+Knative eventing and other similar solutions looked like they could do the trick. And in a way they did. As a matter of fact, those technologies did abstract away from our apps all the eventing technicalities, limiting their concern to the implementation of simple HTTP endpoints, while optionnally running on top of vendor-specific implementations in the backend. They did, however, come with huge pain points:
+- Subscriptions/Triggers and the like could only be created declaratively, that is thanks to an applied yaml file on Kurbenetes. Rare are the use cases where it isn't enough, but they exist (autonomous replicas of a statefull service, for instance).
+- Subscriptions were left to their bare minimum: there was no way to, say, create a durable subscription to a given subject, or to replay a whole stream of events in case of the critical failure of a service. In fact, I don't even understand why Knative, for example, relies on NATS Streaming rather than NATS, for it does not seem to leverage the persistence mechanisms it offers, at least not at a consumer level.
+
+We then took the decision to use the incredible possibilities Kubernetes and Istio offer to make the CloudEvent Gateway that could solve all of our problems, in the most simple and unambitious way possible. 
+
+This repository contains the result of our quest. We hope it can be as usefull to you as it has been to us.
+
+Happy coding!
+
 # Usage
 
 ## 1. Install the Custom Resource Definitions (CRDs)
