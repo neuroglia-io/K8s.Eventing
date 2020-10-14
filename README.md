@@ -1,5 +1,5 @@
 # Neuroglia.K8s.Eventing
-An Open source .NET CORE 3.1 implementation of a cloud event gateway for Kubernetes and Istio
+An open source .NET CORE 3.1 implementation of a cloud event gateway for Kubernetes and Istio
 
 * * *
 **There is an issue with our Docker image registry, which is unavailable at the moment.**
