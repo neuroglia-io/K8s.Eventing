@@ -1,6 +1,14 @@
 # Neuroglia.K8s.Eventing
 An Open source .NET CORE 3.1 implementation of a cloud event gateway for Kubernetes and Istio
 
+* * *
+**There is an issue with our Docker image registry, which is unavailable at the moment.**
+
+**If you wish to test the solution, please clone the repository and build the following images locally before applying the eventing-core.yaml and eventing-channel-natss.yaml files:**
+- [Gateway image](https://github.com/neuroglia-io/K8s.Eventing/blob/main/src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/Dockerfile)
+- [NATSS Channel image](https://github.com/neuroglia-io/K8s.Eventing/blob/main/src/Channels/NATSS/Neuroglia.K8s.Eventing.Channels.Nats.Api/Dockerfile)
+* * *
+
 # Usage
 
 ## 1. Install the Custom Resource Definitions (CRDs) on Kubernetes
