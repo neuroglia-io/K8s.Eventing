@@ -3,7 +3,7 @@ An Open source .NET CORE 3.1 implementation of a cloud event gateway for Kuberne
 
 # Usage
 
-## 1. Install the Kubernetes Custom Resource Definitions (CRDs)
+## 1. Install the Custom Resource Definitions (CRDs) on Kubernetes
 
 ```powershell
 kubectl apply -f https://raw.githubusercontent.com/neuroglia-io/K8s.Eventing/main/deployment/eventing-crds.yaml
