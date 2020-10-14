@@ -9,6 +9,20 @@ An open source .NET CORE 3.1 implementation of a cloud event gateway for Kuberne
 - [NATSS Channel image](https://github.com/neuroglia-io/K8s.Eventing/blob/main/src/Channels/NATSS/Neuroglia.K8s.Eventing.Channels.Nats.Api/Dockerfile)
 * * *
 
+# Table of contents
+
+- [Motivation](https://github.com/neuroglia-io/K8s.Eventing#motivation)
+- [Under the hood](https://github.com/neuroglia-io/K8s.Eventing#under-the-hood)
+- [Usage](https://github.com/neuroglia-io/K8s.Eventing#usage)
+  - [1. Install the Custom Resource Definitions (CRDs)](https://github.com/neuroglia-io/K8s.Eventing#1-install-the-custom-resource-definitions-crds)
+  - [2. Deploy Neuroglia.K8s.Eventing](https://github.com/neuroglia-io/K8s.Eventing#2-deploy-neurogliak8seventing)
+  - [3. Install an eventing channel](https://github.com/neuroglia-io/K8s.Eventing#3-install-an-eventing-channel)
+    - [NATS Streaming Channel](https://github.com/neuroglia-io/K8s.Eventing#nats-streaming-channel)
+  - [4. Create a broker](https://github.com/neuroglia-io/K8s.Eventing#4-create-a-broker)
+  - [5. Start using Neuroglia Kubernetes Eventing](https://github.com/neuroglia-io/K8s.Eventing#5-start-using-neuroglia-kubernetes-eventing)
+  - [Examples](https://github.com/neuroglia-io/K8s.Eventing#examples)
+- [Contributing](https://github.com/neuroglia-io/K8s.Eventing#contributing)
+
 # Motivation
 
 In the context of the development of our new cloud native POS Management solution, which heavily relies on integration events, we wanted to abstract away from our numerous microservices the burden of eventing-specific implementations, which were tightly coupled with vendor-specific code.
