@@ -1,7 +1,9 @@
 ﻿using CloudNative.CloudEvents;
 using GatewayClient.Services;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace GatewayClient.Controllers
@@ -32,15 +34,15 @@ namespace GatewayClient.Controllers
         [HttpPost("sub")]
         public async Task<IActionResult> Sub(string subject)
         {
-            var subscriptionId = await this.EventBus.SubscribeToAsync(subject);
-            return this.Ok(subscriptionId);
+            var subscription = await this.EventBus.SubscribeToAsync(subject);
+            return this.Created(new Uri(this.HttpContext.Request.GetDisplayUrl()), subscription);
         }
 
         [HttpDelete("unsub")]
         public async Task<IActionResult> Unsub(string subscriptionId)
         {
             await this.EventBus.UnsubscribeFromAsync(subscriptionId);
-            return this.Ok();
+            return this.NoContent();
         }
 
         [HttpPost]

@@ -1,0 +1,119 @@
+﻿apiVersion: v1
+kind: Namespace
+metadata:
+  name: eventing-test
+  labels:
+    name: eventing-test
+    istio-injection: enabled
+
+---
+
+apiVersion: eventing.k8s.neuroglia.io/v1alpha1
+kind: Broker
+metadata:
+  name: broker
+  namespace: eventing-test
+spec:
+  channel: natss
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatewayclient
+  namespace: eventing-test
+  annotations:
+    traffic.sidecar.istio.io/excludeOutboundIPRanges: 10.96.0.1/32
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gatewayclient
+      version: "1.0"
+  template:
+    metadata:
+      labels:
+        app: gatewayclient
+        version: "1.0"
+      annotations:
+        traffic.sidecar.istio.io/excludeOutboundIPRanges: 10.96.0.1/32
+    spec:
+      containers:
+      - name: gatewayclient
+        image: gatewayclient:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http-gateway
+        env:
+        - name: ASPNETCORE_URLS 
+          value: http://+:80
+        - name: BROKER_URI
+          value: http://broker/events/
+        - name: CHANNEL
+          value: natss
+        - name: POD_NAME
+          value: gatewayclient
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatewayclient
+  namespace: eventing-test
+  labels: 
+    app: gatewayclient
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: gatewayclient
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gatewayclient-vs
+  namespace: eventing-test
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - gatewayclient-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: gatewayclient.eventing-test.svc.cluster.local
+        port:
+          number: 80
+          
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gatewayclient-gateway
+  namespace: eventing-test
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+    
+---

@@ -9,12 +9,13 @@
             Represents the <see cref="T:Microsoft.AspNetCore.Mvc.Controller"/> used to manage <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController},MediatR.IMediator)">
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController},MediatR.IMediator,AutoMapper.IMapper)">
             <summary>
             Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController"/>
             </summary>
             <param name="logger">The service used to perform logging</param>
             <param name="mediator">The service used to mediate calls</param>
+            <param name="mapper">The service used to map objects</param>
         </member>
         <member name="P:Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController.Logger">
             <summary>
@@ -26,11 +27,30 @@
             Gets the service used to mediate calls
             </summary>
         </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController.Mapper">
+            <summary>
+            Gets the service used to map objects
+            </summary>
+        </member>
         <member name="M:Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController.Pub(CloudNative.CloudEvents.CloudEvent)">
             <summary>
             Publishes the specified cloud event
             </summary>
             <param name="cloudEvent">The cloud event to publish</param>
+            <returns>A new <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController.Sub(Neuroglia.K8s.Eventing.Gateway.Integration.Commands.CreateSubscriptionCommandDto)">
+            <summary>
+            Creates a new cloud event subscription
+            </summary>
+            <param name="command">The object that describes the command to execute</param>
+            <returns>A new <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Api.Controllers.EventsController.Unsub(System.String)">
+            <summary>
+            Deletes an existing cloud event subscription
+            </summary>
+            <param name="subscriptionId">The id of the subscription to delete</param>
             <returns>A new <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/></returns>
         </member>
         <member name="T:Neuroglia.K8s.Eventing.Gateway.Api.Program">

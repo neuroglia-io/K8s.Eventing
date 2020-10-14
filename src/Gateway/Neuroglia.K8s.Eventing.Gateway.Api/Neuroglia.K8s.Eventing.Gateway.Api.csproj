@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\Neuroglia.Mediation.AspNetCore\Neuroglia.Mediation.AspNetCore.csproj" />
     <ProjectReference Include="..\Neuroglia.K8s.Eventing.Gateway.Application\Neuroglia.K8s.Eventing.Gateway.Application.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Neuroglia.K8s.Eventing.Gateway.Infrastructure;
+﻿using Neuroglia.K8s.Eventing.Gateway.Infrastructure;
 using Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services;
 using Neuroglia.K8s.Eventing.Gateway.Integration.Models;
+using Neuroglia.Mediation;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
     /// Represents the service used to handle <see cref="CreateSubscriptionCommand"/>s
     /// </summary>
     public class CreateSubscriptionCommandHandler
-        : IRequestHandler<CreateSubscriptionCommand, string>
+        : ICommandHandler<CreateSubscriptionCommand, SubscriptionDto>
     {
 
         /// <summary>
@@ -38,10 +38,10 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
         protected ISubscriptionManager SubscriptionManager { get; }
 
         /// <inheritdoc/>
-        public virtual async Task<string> Handle(CreateSubscriptionCommand command, CancellationToken cancellationToken)
+        public virtual async Task<IOperationResult<SubscriptionDto>> Handle(CreateSubscriptionCommand command, CancellationToken cancellationToken)
         {
             if (!this.ChannelManager.TryGetChannel(command.Channel, out IChannel channel))
-                throw new ArgumentException($"Failed to find a channel with the specified name '{command.Channel}'", nameof(command.Channel));
+                throw new OperationArgumentException($"Failed to find a channel with the specified name '{command.Channel}'", nameof(command.Channel));
             string subscriptionId = Guid.NewGuid().ToString();
             SubscriptionOptionsDto subscriptionOptions = new SubscriptionOptionsDto()
             {
@@ -52,7 +52,15 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
             };
             await channel.SubscribeAsync(subscriptionOptions, cancellationToken);
             this.SubscriptionManager.RegisterSubscription(subscriptionId, command.Subject, command.Type, command.Source, command.Channel, command.Subscribers);
-            return subscriptionId;
+            return this.Ok(new SubscriptionDto()
+            {
+                Id = subscriptionId,
+                Channel = command.Channel,
+                Subject = command.Subject,
+                Type = command.Type,
+                Source = command.Source,
+                Subscribers = command.Subscribers
+            });
         }
 
     }

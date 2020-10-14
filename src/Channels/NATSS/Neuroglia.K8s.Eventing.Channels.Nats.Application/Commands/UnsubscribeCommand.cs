@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using Neuroglia.Mediation;
 
 namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
 {
@@ -7,7 +7,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
     /// Represents the command used to delete an existing subscription
     /// </summary>
     public class UnsubscribeCommand
-        : IRequest
+        : Command
     {
 
         /// <summary>

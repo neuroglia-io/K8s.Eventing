@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\BuildingBlocks\Neuroglia.Mediation\Neuroglia.Mediation.csproj" />
     <ProjectReference Include="..\..\src\Gateway\Neuroglia.K8s.Eventing.Gateway.Integration\Neuroglia.K8s.Eventing.Gateway.Integration.csproj" />
   </ItemGroup>
 

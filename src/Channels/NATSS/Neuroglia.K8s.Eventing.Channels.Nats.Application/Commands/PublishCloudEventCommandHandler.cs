@@ -1,6 +1,6 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services;
+using Neuroglia.Mediation;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +11,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
     /// Represents the service used to handle <see cref="PublishCloudEventCommand"/>s
     /// </summary>
     public class PublishCloudEventCommandHandler
-        : IRequestHandler<PublishCloudEventCommand>
+        : ICommandHandler<PublishCloudEventCommand>
     {
 
         /// <summary>
@@ -36,12 +36,12 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
         protected IEventChannel Channel { get; }
 
         /// <inheritdoc/>
-        public virtual async Task<Unit> Handle(PublishCloudEventCommand request, CancellationToken cancellationToken)
+        public virtual async Task<IOperationResult> Handle(PublishCloudEventCommand request, CancellationToken cancellationToken)
         {
             this.Logger.LogInformation("Publishing cloud event to the underlying NATS Streaming sink...");
             await this.Channel.PublishAsync(request.Event, cancellationToken);
             this.Logger.LogInformation("Cloud event published to the underlying NATS Streaming sink.");
-            return Unit.Value;
+            return this.Ok();
         }
 
     }

@@ -35,7 +35,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-          name: http-gateway
+          name: http
         env:
         - name: ASPNETCORE_URLS 
           value: http://+:80
@@ -43,6 +43,24 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          failureThreshold: 30
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          failureThreshold: 30
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
 
 ---
 
@@ -56,6 +74,6 @@ metadata:
 spec:
   ports:
   - port: 80
-    name: http-gateway
+    name: http
   selector:
     app: gateway

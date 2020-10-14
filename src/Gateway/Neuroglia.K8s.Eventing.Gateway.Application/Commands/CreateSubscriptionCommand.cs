@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Neuroglia.K8s.Eventing.Gateway.Integration.Models;
+using Neuroglia.Mediation;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
     /// Represents the command used to create a new subscription
     /// </summary>
     public class CreateSubscriptionCommand
-        : IRequest<string>
+        : Command<SubscriptionDto>
     {
 
         /// <summary>

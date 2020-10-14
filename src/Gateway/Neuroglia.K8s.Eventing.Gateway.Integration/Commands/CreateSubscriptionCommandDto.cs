@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Neuroglia.K8s.Eventing.Gateway.Integration.Commands
 {
@@ -14,6 +15,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Integration.Commands
         /// <summary>
         /// Gets/sets the name of the channel the subscription to create is bound to
         /// </summary>
+        [Required]
         public string Channel { get; set; }
 
         /// <summary>

@@ -19,11 +19,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Neuroglia.StartupTasks" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Neuroglia.Mediation\Neuroglia.Mediation.csproj" />
     <ProjectReference Include="..\Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure\Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.csproj" />
   </ItemGroup>
 

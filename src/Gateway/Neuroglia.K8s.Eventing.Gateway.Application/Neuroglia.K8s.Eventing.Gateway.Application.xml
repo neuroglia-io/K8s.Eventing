@@ -4,6 +4,124 @@
         <name>Neuroglia.K8s.Eventing.Gateway.Application</name>
     </assembly>
     <members>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand">
+            <summary>
+            Represents the command used to create a new subscription
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand.#ctor(System.String,System.String,System.String,System.Uri,System.Boolean,System.Nullable{System.Int32},System.Collections.Generic.IList{System.Uri})">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand"/>
+            </summary>
+            <param name="channel">The name of the channel the subscription to create is bound to</param>
+            <param name="subject">The cloud event subject the subscription to create applies to</param>
+            <param name="type">The cloud event type the subscription to create applies to</param>
+            <param name="source">The cloud event source the subscription to create applies to</param>
+            <param name="durable">A boolean indicating whether or not the subscription to create is durable</param>
+            <param name="streamPosition">An integer representing the position in the cloud event stream starting from which to consume cloud events</param>
+            <param name="subscribers">An <see cref="T:System.Collections.Generic.IList`1"/> containing the URIs of all the services that subscribe to the subscription to create</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand.Channel">
+            <summary>
+            Gets/sets the name of the channel the subscription to create is bound to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand.Subject">
+            <summary>
+            Gets/sets the cloud event subject the subscription to create applies to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand.Type">
+            <summary>
+            Gets/sets the cloud event type the subscription to create applies to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand.Source">
+            <summary>
+            Gets/sets the cloud event source the subscription to create applies to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand.Durable">
+            <summary>
+            Gets/sets a boolean indicating whether or not the subscription to create is durable
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand.StreamPosition">
+            <summary>
+            Gets/sets an integer representing the position in the cloud event stream starting from which to consume cloud events
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand.Subscribers">
+            <summary>
+            Gets/sets a <see cref="T:System.Collections.Generic.IList`1"/> containing the URIs of all the services that subscribe to the subscription to create
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommandHandler">
+            <summary>
+            Represents the service used to handle <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommandHandler.#ctor(Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager,Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommandHandler"/>
+            </summary>
+            <param name="channelManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s</param>
+            <param name="subscriptionManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommandHandler.ChannelManager">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommandHandler.SubscriptionManager">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommandHandler.Handle(Neuroglia.K8s.Eventing.Gateway.Application.Commands.CreateSubscriptionCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommand">
+            <summary>
+            Represents the command used to delete an existing subscription
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommand.#ctor(System.String)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommand"/>
+            </summary>
+            <param name="subscriptionId">The id of the subscription to delete</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommand.SubscriptionId">
+            <summary>
+            Gets the id of the subscription to delete
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommandHandler">
+            <summary>
+            Represents the service used to handle <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommand"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommandHandler.#ctor(Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager,Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommandHandler"/>
+            </summary>
+            <param name="channelManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s</param>
+            <param name="subscriptionManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommandHandler.ChannelManager">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommandHandler.SubscriptionManager">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommandHandler.Handle(Neuroglia.K8s.Eventing.Gateway.Application.Commands.DeleteSubscriptionCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
         <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DispatchCloudEventToSubscribersCommand">
             <summary>
             Represents the command used to publish a <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to its subscribers, if any
@@ -97,6 +215,16 @@
         </member>
         <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler.Handle(Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommand,System.Threading.CancellationToken)">
             <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.Mapping.MappingProfile">
+            <summary>
+            Represents the application's <see cref="T:AutoMapper.Profile"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Mapping.MappingProfile.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Mapping.MappingProfile"/>
+            </summary>
         </member>
         <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.StartupTasks.ResourceControllerInitializationTask">
             <summary>

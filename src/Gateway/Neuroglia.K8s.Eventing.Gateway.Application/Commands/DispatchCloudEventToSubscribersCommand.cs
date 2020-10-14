@@ -1,5 +1,5 @@
 ﻿using CloudNative.CloudEvents;
-using MediatR;
+using Neuroglia.Mediation;
 
 namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
 {
@@ -8,7 +8,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
     /// Represents the command used to publish a <see cref="CloudEvent"/> to its subscribers, if any
     /// </summary>
     public class DispatchCloudEventToSubscribersCommand
-        : IRequest
+        : Command
     {
 
         /// <summary>

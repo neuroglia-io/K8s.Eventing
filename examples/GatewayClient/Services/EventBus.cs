@@ -1,6 +1,9 @@
 ﻿using CloudNative.CloudEvents;
 using Microsoft.Extensions.Logging;
 using Neuroglia.K8s.Eventing.Gateway.Integration.Commands;
+using Neuroglia.K8s.Eventing.Gateway.Integration.Models;
+using Neuroglia.Mediation;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -33,35 +36,41 @@ namespace GatewayClient.Services
             }
         }
 
-        public async Task<string> SubscribeToAsync(string subject, CancellationToken cancellationToken = default)
+        public async Task<SubscriptionDto> SubscribeToAsync(string subject, CancellationToken cancellationToken = default)
         {
             var channel = Environment.GetEnvironmentVariable("CHANNEL");
             var podName = Environment.GetEnvironmentVariable("POD_NAME");
             var podNamespace = Environment.GetEnvironmentVariable("POD_NAMESPACE");
+            var subscriberUri = new Uri($"http://{podName}.{podNamespace}.svc.cluster.local/events");
             var createSubscriptionCommand = new CreateSubscriptionCommandDto
             {
                 Subject = subject,
                 Channel = channel,
-                Subscribers = new List<Uri>()
-                {
-                    new Uri($"http://{podName}.{podNamespace}.svc.cluster.local")
-                }
+                Subscribers = new List<Uri>() { subscriberUri }
             };
-            string subscriptionId;
+            SubscriptionDto subscription;
             using (HttpResponseMessage response = await this.HttpClient.PostAsJsonAsync("sub", createSubscriptionCommand))
             {
-                response.EnsureSuccessStatusCode();
-                subscriptionId = await response?.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    var content = await response?.Content.ReadAsStringAsync();
+                    throw new OperationException($"The remote server responded with a non-success status code '{response.StatusCode}'.{Environment.NewLine}Details: {content}");
+                }
+                subscription = JsonConvert.DeserializeObject<SubscriptionDto>(await response?.Content.ReadAsStringAsync());
                 this.Logger.LogInformation("A cloud event subscription to subject '{subject}' has been successfully created", subject);
             }
-            return subscriptionId;
+            return subscription;
         }
 
         public async Task UnsubscribeFromAsync(string subscriptionId, CancellationToken cancellationToken = default)
         {
             using (HttpResponseMessage response = await this.HttpClient.DeleteAsync($"unsub?subscriptionId={subscriptionId}"))
             {
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    var content = await response?.Content.ReadAsStringAsync();
+                    throw new OperationException($"The remote server responded with a non-success status code '{response.StatusCode}'.{Environment.NewLine}Details: {content}");
+                }
                 this.Logger.LogInformation("The cloud event subscription with id '{subscriptionId}' has been successfully deleted", subscriptionId);
             }
         }

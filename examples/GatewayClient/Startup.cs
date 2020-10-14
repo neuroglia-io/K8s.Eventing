@@ -21,7 +21,11 @@ namespace GatewayClient
             services.AddControllers(options =>
             {
                 options.InputFormatters.Insert(0, new CloudEventJsonInputFormatter());
-            });
+            })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

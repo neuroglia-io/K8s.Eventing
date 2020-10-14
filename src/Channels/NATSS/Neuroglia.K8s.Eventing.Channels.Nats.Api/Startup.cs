@@ -11,6 +11,7 @@ using Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands;
 using Neuroglia.K8s.Eventing.Channels.Nats.Application.StartupTasks;
 using Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Configuration;
 using Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services;
+using Neuroglia.Mediation;
 using Neuroglia.StartupTasks;
 using STAN.Client;
 
@@ -52,6 +53,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Api
         {
             services.AddSingleton(Options.Create(this.ApplicationOptions));
             services.AddMediatR(typeof(SubscribeCommand).Assembly);
+            services.AddCommandBehavior(typeof(OperationExceptionHandlingBehavior<,>), typeof(SubscribeCommand).Assembly);
             services.AddHttpClient(typeof(EventChannel).Name, options =>
             {
                 options.BaseAddress = this.ApplicationOptions.Sink;
@@ -71,7 +73,11 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Api
             services.AddControllers(options =>
             {
                 options.InputFormatters.Insert(0, new CloudEventJsonInputFormatter());
-            });
+            })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                });
         }
 
         /// <summary>

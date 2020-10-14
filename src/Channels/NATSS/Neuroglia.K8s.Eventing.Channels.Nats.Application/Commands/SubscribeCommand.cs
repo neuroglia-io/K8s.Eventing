@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Neuroglia.K8s.Eventing.Gateway.Integration.Models;
+﻿using Neuroglia.K8s.Eventing.Gateway.Integration.Models;
+using Neuroglia.Mediation;
 
 namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
 {
@@ -8,7 +8,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
     /// Represents the command used to create a new subscription
     /// </summary>
     public class SubscribeCommand
-        : IRequest
+        : Command
     {
 
         /// <summary>

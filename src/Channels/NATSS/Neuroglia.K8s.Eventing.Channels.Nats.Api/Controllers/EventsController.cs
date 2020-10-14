@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands;
 using Neuroglia.K8s.Eventing.Gateway.Integration.Models;
+using Neuroglia.Mediation;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Neuroglia.K8s.Eventing.Channels.Nats.Api.Controllers
@@ -46,8 +48,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Api.Controllers
         [HttpPost("sub")]
         public async Task<IActionResult> Subscribe([FromBody]SubscriptionOptionsDto subscription)
         {
-            await this.Mediator.Send(new SubscribeCommand(subscription));
-            return this.Accepted();
+            return this.Process(await this.Mediator.Send(new SubscribeCommand(subscription)), (int)HttpStatusCode.Accepted);
         }
 
         /// <summary>
@@ -58,8 +59,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Api.Controllers
         [HttpDelete("unsub")]
         public async Task<IActionResult> Unsubscribe(string subscriptionId)
         {
-            await this.Mediator.Send(new UnsubscribeCommand(subscriptionId));
-            return this.Accepted();
+            return this.Process(await this.Mediator.Send(new UnsubscribeCommand(subscriptionId)), (int)HttpStatusCode.Accepted);
         }
 
         /// <summary>
@@ -70,8 +70,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Api.Controllers
         [HttpPost("pub")]
         public async Task<IActionResult> Publish([FromBody]CloudEvent e)
         {
-            await this.Mediator.Send(new PublishCloudEventCommand(e));
-            return this.Accepted();
+            return this.Process(await this.Mediator.Send(new PublishCloudEventCommand(e)), (int)HttpStatusCode.Accepted);
         }
 
     }

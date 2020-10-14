@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Neuroglia.Mediation.AspNetCore</name>
+    </assembly>
+    <members>
+        <member name="T:Neuroglia.Mediation.ControllerBaseExtensions">
+            <summary>
+            Defines extensions for <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.Mediation.ControllerBaseExtensions.Process``1(Microsoft.AspNetCore.Mvc.ControllerBase,``0,System.Nullable{System.Int32})">
+            <summary>
+            Processes the specified <see cref="T:Neuroglia.Mediation.IOperationResult"/>
+            </summary>
+            <typeparam name="TResult">The type of <see cref="T:Neuroglia.Mediation.IOperationResult"/> to process</typeparam>
+            <param name="controller">The extended <see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/></param>
+            <param name="operationResult">The <see cref="T:Neuroglia.Mediation.IOperationResult"/> to process</param>
+            <param name="successStatusCode">The status code to return when processing a successfull <see cref="T:Neuroglia.Mediation.IOperationResult"/>. If not set, the <see cref="T:Neuroglia.Mediation.IOperationResult"/>'s status code will be returned</param>
+            <returns>A new <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> based on the specified <see cref="T:Neuroglia.Mediation.IOperationResult"/></returns>
+        </member>
+    </members>
+</doc>

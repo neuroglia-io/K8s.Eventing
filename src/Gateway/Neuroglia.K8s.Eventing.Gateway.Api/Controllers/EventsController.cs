@@ -6,8 +6,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using Neuroglia.K8s.Eventing.Gateway.Application.Commands;
 using Neuroglia.K8s.Eventing.Gateway.Integration.Commands;
+using Neuroglia.Mediation;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,13 +60,14 @@ namespace Neuroglia.K8s.Eventing.Gateway.Api.Controllers
         /// <param name="cloudEvent">The cloud event to publish</param>
         /// <returns>A new <see cref="IActionResult"/></returns>
         [HttpPost("pub")]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
         public async Task<IActionResult> Pub([FromBody]CloudEvent cloudEvent)
         {
             this.Logger.LogInformation($"Cloud event received. Payload:{Environment.NewLine}{{payload}}", Encoding.UTF8.GetString(new JsonEventFormatter().EncodeStructuredEvent(cloudEvent, out ContentType contentType)));
             if (this.Request.Headers.TryGetValue(EventingDefaults.Headers.Channel, out StringValues values))
-                await this.Mediator.Send(new PublishCloudEventToChannelCommand(values.First(), cloudEvent));
+                return this.Process(await this.Mediator.Send(new PublishCloudEventToChannelCommand(values.First(), cloudEvent)), (int)HttpStatusCode.Accepted);
             else if (this.Request.Headers.ContainsKey(EventingDefaults.Headers.Origin))
-                await this.Mediator.Send(new DispatchCloudEventToSubscribersCommand(cloudEvent));
+                return this.Process(await this.Mediator.Send(new DispatchCloudEventToSubscribersCommand(cloudEvent)), (int)HttpStatusCode.Accepted);
             return this.Accepted();
         }
 
@@ -73,10 +77,14 @@ namespace Neuroglia.K8s.Eventing.Gateway.Api.Controllers
         /// <param name="command">The object that describes the command to execute</param>
         /// <returns>A new <see cref="IActionResult"/></returns>
         [HttpPost("sub")]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> Sub([FromBody]CreateSubscriptionCommandDto command)
         {
-            string subscriptionId = await this.Mediator.Send(this.Mapper.Map<CreateSubscriptionCommand>(command));
-            return this.Ok(subscriptionId);
+            if (!this.ModelState.IsValid)
+                return this.BadRequest(this.ModelState);
+            return this.Process(await this.Mediator.Send(this.Mapper.Map<CreateSubscriptionCommand>(command)), (int)HttpStatusCode.Created);
         }
 
         /// <summary>
@@ -85,10 +93,12 @@ namespace Neuroglia.K8s.Eventing.Gateway.Api.Controllers
         /// <param name="subscriptionId">The id of the subscription to delete</param>
         /// <returns>A new <see cref="IActionResult"/></returns>
         [HttpDelete("unsub")]
-        public async Task<IActionResult> Unsub(string subscriptionId)
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> Unsub([Required]string subscriptionId)
         {
-            await this.Mediator.Send(new DeleteSubscriptionCommand(subscriptionId));
-            return this.Ok();
+            return this.Process(await this.Mediator.Send(new DeleteSubscriptionCommand(subscriptionId)), (int)HttpStatusCode.NoContent);
         }
 
     }

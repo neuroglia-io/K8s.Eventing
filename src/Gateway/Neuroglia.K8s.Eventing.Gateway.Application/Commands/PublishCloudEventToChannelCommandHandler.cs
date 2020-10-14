@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Neuroglia.K8s.Eventing.Gateway.Infrastructure;
 using Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services;
+using Neuroglia.Mediation;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +12,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
     /// Represents the service used to handle <see cref="PublishCloudEventToChannelCommand"/>s
     /// </summary>
     public class PublishCloudEventToChannelCommandHandler
-        : IRequestHandler<PublishCloudEventToChannelCommand>
+        : ICommandHandler<PublishCloudEventToChannelCommand>
     {
 
         /// <summary>
@@ -37,11 +37,11 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
         protected IChannelManager ChannelManager { get; }
 
         /// <inheritdoc/>
-        public virtual async Task<Unit> Handle(PublishCloudEventToChannelCommand command, CancellationToken cancellationToken)
+        public virtual async Task<IOperationResult> Handle(PublishCloudEventToChannelCommand command, CancellationToken cancellationToken)
         {
             if (this.ChannelManager.TryGetChannel(command.Channel, out IChannel channel))
                 await channel.PublishAsync(command.Event, cancellationToken);
-            return Unit.Value;
+            return this.Ok();
         }
 
     }

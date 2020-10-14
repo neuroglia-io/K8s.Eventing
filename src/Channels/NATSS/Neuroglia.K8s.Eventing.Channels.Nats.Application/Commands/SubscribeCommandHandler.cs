@@ -1,6 +1,6 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services;
+using Neuroglia.Mediation;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +11,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
     /// Represents the service used to handle <see cref="SubscribeCommand"/>s
     /// </summary>
     public class SubscribeCommandHandler
-        : IRequestHandler<SubscribeCommand>
+        : ICommandHandler<SubscribeCommand>
     {
 
         /// <summary>
@@ -36,12 +36,12 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
         protected IEventChannel Channel { get; }
 
         /// <inheritdoc/>
-        public virtual async Task<Unit> Handle(SubscribeCommand request, CancellationToken cancellationToken)
+        public virtual async Task<IOperationResult> Handle(SubscribeCommand request, CancellationToken cancellationToken)
         {
             this.Logger.LogInformation("Creating a new subscription on the underlying NATS Streaming sink...");
             await this.Channel.SubscribeAsync(request.SubscriptionOptions, cancellationToken);
             this.Logger.LogInformation("The subscription has been successfully created on the underlying NATS Streaming sink.");
-            return Unit.Value;
+            return this.Ok();
         }
 
     }

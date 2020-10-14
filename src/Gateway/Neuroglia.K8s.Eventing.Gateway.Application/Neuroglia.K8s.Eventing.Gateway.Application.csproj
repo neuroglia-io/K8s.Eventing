@@ -17,12 +17,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Neuroglia.StartupTasks" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\Neuroglia.AutoMapper\Neuroglia.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Neuroglia.Mediation\Neuroglia.Mediation.csproj" />
     <ProjectReference Include="..\Neuroglia.K8s.Eventing.Gateway.Infrastructure\Neuroglia.K8s.Eventing.Gateway.Infrastructure.csproj" />
   </ItemGroup>
 

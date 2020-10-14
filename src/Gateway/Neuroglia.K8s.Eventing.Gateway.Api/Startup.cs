@@ -13,6 +13,7 @@ using Neuroglia.K8s.Eventing.Gateway.Application.StartupTasks;
 using Neuroglia.K8s.Eventing.Gateway.Infrastructure;
 using Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration;
 using Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services;
+using Neuroglia.Mediation;
 using Neuroglia.StartupTasks;
 
 namespace Neuroglia.K8s.Eventing.Gateway.Api
@@ -54,6 +55,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Api
             services.AddSingleton(Options.Create(this.ApplicationOptions));
             services.AddKubernetesClient();
             services.AddMediatR(typeof(PublishCloudEventToChannelCommand).Assembly);
+            services.AddCommandBehavior(typeof(OperationExceptionHandlingBehavior<,>), typeof(PublishCloudEventToChannelCommand).Assembly);
             services.AddAutoMapper(typeof(PublishCloudEventToChannelCommand).Assembly);
             services.AddSingleton<ISubscriptionManager, SubscriptionManager>();
             services.AddSingleton<IChannelManager, ChannelManager>();
@@ -67,7 +69,11 @@ namespace Neuroglia.K8s.Eventing.Gateway.Api
             services.AddControllers(options =>
             {
                 options.InputFormatters.Insert(0, new CloudEventJsonInputFormatter());
-            });
+            })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                });
         }
 
         /// <summary>

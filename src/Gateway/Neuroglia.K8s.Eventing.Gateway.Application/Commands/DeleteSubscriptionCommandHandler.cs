@@ -1,7 +1,6 @@
-﻿using MediatR;
-using Neuroglia.K8s.Eventing.Gateway.Infrastructure;
+﻿using Neuroglia.K8s.Eventing.Gateway.Infrastructure;
 using Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services;
-using System;
+using Neuroglia.Mediation;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +11,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
     /// Represents the service used to handle <see cref="DeleteSubscriptionCommand"/>s
     /// </summary>
     public class DeleteSubscriptionCommandHandler
-        : IRequestHandler<DeleteSubscriptionCommand>
+        : ICommandHandler<DeleteSubscriptionCommand>
     {
 
         /// <summary>
@@ -37,15 +36,16 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
         protected ISubscriptionManager SubscriptionManager { get; }
 
         /// <inheritdoc/>
-        public virtual async Task<Unit> Handle(DeleteSubscriptionCommand command, CancellationToken cancellationToken)
+        public virtual async Task<IOperationResult> Handle(DeleteSubscriptionCommand command, CancellationToken cancellationToken)
         {
             ISubscription subscription = this.SubscriptionManager.GetSubscriptionById(command.SubscriptionId);
             if (subscription == null)
-                throw new NullReferenceException($"Failed to find a cloud event subscription with the specified id '{command.SubscriptionId}'");
+                throw new OperationNullReferenceException($"Failed to find a cloud event subscription with the specified id '{command.SubscriptionId}'");
             if (subscription.IsChannelBound
                 && this.ChannelManager.TryGetChannel(subscription.ChannelName, out IChannel channel))
                 await channel.UnsubscribeAsync(subscription.Id, cancellationToken);
-            return Unit.Value;
+            this.SubscriptionManager.UnregisterSubscription(command.SubscriptionId);
+            return this.Ok();
         }
 
     }

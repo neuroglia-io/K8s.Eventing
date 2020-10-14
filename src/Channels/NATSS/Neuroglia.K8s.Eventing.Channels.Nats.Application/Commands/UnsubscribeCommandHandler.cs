@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Neuroglia.K8s.Eventing.Channels.Nats.Infrastructure.Services;
+using Neuroglia.Mediation;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
     /// Represents the service used to handle <see cref="UnsubscribeCommand"/>s
     /// </summary>
     public class UnsubscribeCommandHandler
-        : IRequestHandler<UnsubscribeCommand>
+        : ICommandHandler<UnsubscribeCommand>
     {
 
         /// <summary>
@@ -36,12 +37,12 @@ namespace Neuroglia.K8s.Eventing.Channels.Nats.Application.Commands
         protected IEventChannel Channel { get; }
 
         /// <inheritdoc/>
-        public virtual async Task<Unit> Handle(UnsubscribeCommand request, CancellationToken cancellationToken)
+        public virtual async Task<IOperationResult> Handle(UnsubscribeCommand request, CancellationToken cancellationToken)
         {
             this.Logger.LogInformation("Deleting an existing subscription from the underlying NATS Streaming sink");
             await this.Channel.UnsubscribeAsync(request.SubscriptionId, cancellationToken);
             this.Logger.LogInformation("The subscription has been successfully deleted from the underlying NATS Streaming sink");
-            return Unit.Value;
+            return this.Ok();
         }
 
     }

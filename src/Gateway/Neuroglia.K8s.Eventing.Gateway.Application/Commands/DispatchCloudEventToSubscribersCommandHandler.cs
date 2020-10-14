@@ -1,7 +1,7 @@
 ﻿using CloudNative.CloudEvents;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services;
+using Neuroglia.Mediation;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
     /// Represents the service used to handle <see cref="DispatchCloudEventToSubscribersCommand"/>s
     /// </summary>
     public class DispatchCloudEventToSubscribersCommandHandler
-        : IRequestHandler<DispatchCloudEventToSubscribersCommand>
+        : ICommandHandler<DispatchCloudEventToSubscribersCommand>
     {
 
         /// <summary>
@@ -45,10 +45,10 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
         protected HttpClient HttpClient { get; }
 
         /// <inheritdoc/>
-        public virtual async Task<Unit> Handle(DispatchCloudEventToSubscribersCommand request, CancellationToken cancellationToken)
+        public virtual async Task<IOperationResult> Handle(DispatchCloudEventToSubscribersCommand request, CancellationToken cancellationToken)
         {
             await this.Dispatcher.DispatchAsync(request.Event, cancellationToken);
-            return Unit.Value;
+            return this.Ok();
         }
 
     }
