@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <NeutralLanguage>en</NeutralLanguage>
     <Authors>Charles d'Avernas</Authors>
     <Company>Neuroglia SPRL</Company>
@@ -20,9 +20,9 @@
 
   <ItemGroup>
     <PackageReference Include="CloudNative.CloudEvents" Version="1.3.80" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.8" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
     <PackageReference Include="Neuroglia.Istio" Version="1.0.0" />
   </ItemGroup>
 

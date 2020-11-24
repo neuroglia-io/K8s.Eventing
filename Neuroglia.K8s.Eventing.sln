@@ -30,6 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuroglia.K8s.Eventing.Chan
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{8979E7BA-D2EF-46B4-8BD8-58C39AD4DF10}"
 	ProjectSection(SolutionItems) = preProject
+		deployment\eventing-channel-eventstore.yaml = deployment\eventing-channel-eventstore.yaml
 		deployment\eventing-channel-natss.yaml = deployment\eventing-channel-natss.yaml
 		deployment\eventing-core.yaml = deployment\eventing-core.yaml
 		deployment\eventing-crds.yaml = deployment\eventing-crds.yaml
@@ -42,9 +43,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayClient", "examples\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuroglia.AutoMapper", "src\BuildingBlocks\Neuroglia.AutoMapper\Neuroglia.AutoMapper.csproj", "{9E33837B-7AF1-4CC6-98FB-B937D00EAFAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuroglia.Mediation", "src\BuildingBlocks\Neuroglia.Mediation\Neuroglia.Mediation.csproj", "{9FDD7CAE-EF02-4B4C-A05F-EC97A82AF779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuroglia.Mediation", "src\BuildingBlocks\Neuroglia.Mediation\Neuroglia.Mediation.csproj", "{9FDD7CAE-EF02-4B4C-A05F-EC97A82AF779}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuroglia.Mediation.AspNetCore", "src\BuildingBlocks\Neuroglia.Mediation.AspNetCore\Neuroglia.Mediation.AspNetCore.csproj", "{FF024B41-05A5-4718-9AC8-0296E75FAB74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuroglia.Mediation.AspNetCore", "src\BuildingBlocks\Neuroglia.Mediation.AspNetCore\Neuroglia.Mediation.AspNetCore.csproj", "{FF024B41-05A5-4718-9AC8-0296E75FAB74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStore", "EventStore", "{0599F8A7-9A59-4D72-BD0B-1C9252C53EB8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure", "src\Channels\EventStore\Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure\Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.csproj", "{7737BE20-87BB-4E67-AAC3-61FF0734D5E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuroglia.K8s.Eventing.Channels.EventStore.Api", "src\Channels\EventStore\Neuroglia.K8s.Eventing.Channels.EventStore.Api\Neuroglia.K8s.Eventing.Channels.EventStore.Api.csproj", "{53F370CB-29EF-4FBF-B88A-BBC93E9125A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuroglia.K8s.Eventing.Channels.EventStore.Application", "src\Channels\EventStore\Neuroglia.K8s.Eventing.Channels.EventStore.Application\Neuroglia.K8s.Eventing.Channels.EventStore.Application.csproj", "{0EA7A592-FD70-41C5-B5D7-10CAC3822017}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +109,18 @@ Global
 		{FF024B41-05A5-4718-9AC8-0296E75FAB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF024B41-05A5-4718-9AC8-0296E75FAB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF024B41-05A5-4718-9AC8-0296E75FAB74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7737BE20-87BB-4E67-AAC3-61FF0734D5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7737BE20-87BB-4E67-AAC3-61FF0734D5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7737BE20-87BB-4E67-AAC3-61FF0734D5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7737BE20-87BB-4E67-AAC3-61FF0734D5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F370CB-29EF-4FBF-B88A-BBC93E9125A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F370CB-29EF-4FBF-B88A-BBC93E9125A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F370CB-29EF-4FBF-B88A-BBC93E9125A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F370CB-29EF-4FBF-B88A-BBC93E9125A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EA7A592-FD70-41C5-B5D7-10CAC3822017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EA7A592-FD70-41C5-B5D7-10CAC3822017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EA7A592-FD70-41C5-B5D7-10CAC3822017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EA7A592-FD70-41C5-B5D7-10CAC3822017}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +142,10 @@ Global
 		{9E33837B-7AF1-4CC6-98FB-B937D00EAFAF} = {6AB93F66-5D41-4C68-A386-1BA046E17189}
 		{9FDD7CAE-EF02-4B4C-A05F-EC97A82AF779} = {6AB93F66-5D41-4C68-A386-1BA046E17189}
 		{FF024B41-05A5-4718-9AC8-0296E75FAB74} = {6AB93F66-5D41-4C68-A386-1BA046E17189}
+		{0599F8A7-9A59-4D72-BD0B-1C9252C53EB8} = {B9300297-6182-4A86-9484-92B809651B76}
+		{7737BE20-87BB-4E67-AAC3-61FF0734D5E5} = {0599F8A7-9A59-4D72-BD0B-1C9252C53EB8}
+		{53F370CB-29EF-4FBF-B88A-BBC93E9125A4} = {0599F8A7-9A59-4D72-BD0B-1C9252C53EB8}
+		{0EA7A592-FD70-41C5-B5D7-10CAC3822017} = {0599F8A7-9A59-4D72-BD0B-1C9252C53EB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {487278CC-5C6B-4592-9259-1B8C9738073C}

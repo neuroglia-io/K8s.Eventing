@@ -47,6 +47,8 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
             {
                 Id = subscriptionId,
                 Subject = command.Subject,
+                Type = command.Type,
+                Source = command.Source.OriginalString,
                 DurableName = command.Durable ? subscriptionId : null,
                 StreamPosition = command.StreamPosition
             };

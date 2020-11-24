@@ -4,17 +4,17 @@
     <TargetFramework>net5.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..\..</DockerfileContext>
-    <DockerfileTag>neuroglia.io/eventing/channels/natss:1.0</DockerfileTag>
+    <DockerfileTag>neuroglia.io/eventing/channels/eventstore:1.0</DockerfileTag>
     <NeutralLanguage>en</NeutralLanguage>
     <Authors>Charles d'Avernas</Authors>
     <Company>Neuroglia SPRL</Company>
     <Copyright>Copyright © 2020 - Neuroglia SPRL. All rights reserved</Copyright>
-    <PackageTags>neuroglia, eventing, channel, nats, api</PackageTags>
+    <PackageTags>neuroglia, eventing, channel, eventstore, api</PackageTags>
     <IsPackable>True</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>Neuroglia.K8s.Eventing.Channels.Nats.Api.xml</DocumentationFile>
+    <DocumentationFile>Neuroglia.K8s.Eventing.Channels.EventStore.Api.xml</DocumentationFile>
     <PackageProjectUrl>https://github.com/neuroglia-io/K8s.Eventing</PackageProjectUrl>
     <RepositoryUrl>https://github.com/neuroglia-io/K8s.Eventing</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -32,7 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Neuroglia.K8s.Eventing\Neuroglia.K8s.Eventing.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Neuroglia.Mediation.AspNetCore\Neuroglia.Mediation.AspNetCore.csproj" />
-    <ProjectReference Include="..\Neuroglia.K8s.Eventing.Channels.Nats.Application\Neuroglia.K8s.Eventing.Channels.Nats.Application.csproj" />
+    <ProjectReference Include="..\Neuroglia.K8s.Eventing.Channels.EventStore.Application\Neuroglia.K8s.Eventing.Channels.EventStore.Application.csproj" />
   </ItemGroup>
 
 </Project>

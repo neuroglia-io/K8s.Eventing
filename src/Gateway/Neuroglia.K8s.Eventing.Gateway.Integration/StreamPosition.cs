@@ -33,7 +33,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Integration
         {
             get
             {
-                return new StreamPosition(-1);
+                return new StreamPosition(0);
             }
         }
 
@@ -44,7 +44,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Integration
         {
             get
             {
-                return new StreamPosition(-2);
+                return new StreamPosition(-1);
             }
         }
 

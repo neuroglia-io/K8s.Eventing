@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Neuroglia.StartupTasks" Version="1.0.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Neuroglia.Mediation\Neuroglia.Mediation.csproj" />
+    <ProjectReference Include="..\Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure\Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

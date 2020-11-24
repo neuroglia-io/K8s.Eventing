@@ -1,0 +1,36 @@
+apiVersion: eventing.k8s.neuroglia.io/v1alpha1
+kind: Channel
+metadata:
+  name: eventstore
+  namespace: neuroglia-eventing
+  labels:
+    name: eventstore
+spec:
+  container: 
+    name: eventstore
+    image: neuroglia.io/eventing/channels/eventstore:1.0
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 80
+      name: http
+    env:
+    - name: EVENTSTORE__HOST
+      value: eventstore.eventstore.svc.cluster.local
+    startupProbe:
+      httpGet:
+        path: /healthz
+        port: http
+      failureThreshold: 30
+      periodSeconds: 5
+    readinessProbe:
+      httpGet:
+        path: /healthz
+        port: http
+      failureThreshold: 30
+      periodSeconds: 5
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: http
+      initialDelaySeconds: 3
+      periodSeconds: 3

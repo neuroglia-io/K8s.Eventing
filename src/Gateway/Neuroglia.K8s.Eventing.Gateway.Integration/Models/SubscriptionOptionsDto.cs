@@ -14,9 +14,19 @@
         public string Id { get; set; }
 
         /// <summary>
-        /// Gets/sets the subject of the subscription to configure
+        /// Gets/sets the subject of the cloud events to subscribe to
         /// </summary>
         public string Subject { get; set; }
+
+        /// <summary>
+        /// Gets/sets the type of the cloud events to subscribe to
+        /// </summary>
+        public string Type { get; set; }
+
+        /// <summary>
+        /// Gets/sets the source of the cloud events to subscribe to
+        /// </summary>
+        public string Source { get; set; }
 
         /// <summary>
         /// Gets/sets the durable name of the subscription to configure
