@@ -96,7 +96,17 @@
         </member>
         <member name="P:Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto.Subject">
             <summary>
-            Gets/sets the subject of the subscription to configure
+            Gets/sets the subject of the cloud events to subscribe to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto.Type">
+            <summary>
+            Gets/sets the type of the cloud events to subscribe to
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto.Source">
+            <summary>
+            Gets/sets the source of the cloud events to subscribe to
             </summary>
         </member>
         <member name="P:Neuroglia.K8s.Eventing.Gateway.Integration.Models.SubscriptionOptionsDto.DurableName">

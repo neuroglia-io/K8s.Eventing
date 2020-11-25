@@ -1,13 +1,13 @@
 apiVersion: eventing.k8s.neuroglia.io/v1alpha1
 kind: Channel
 metadata:
-  name: eventstore
+  name: eventstore-channel
   namespace: neuroglia-eventing
   labels:
-    name: eventstore
+    name: eventstore-channel
 spec:
   container: 
-    name: eventstore
+    name: eventstore-channel
     image: neuroglia.io/eventing/channels/eventstore:1.0
     imagePullPolicy: IfNotPresent
     ports:

@@ -34,6 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", 
 		deployment\eventing-channel-natss.yaml = deployment\eventing-channel-natss.yaml
 		deployment\eventing-core.yaml = deployment\eventing-core.yaml
 		deployment\eventing-crds.yaml = deployment\eventing-crds.yaml
+		deployment\eventstore.yaml = deployment\eventstore.yaml
 		deployment\natss.yaml = deployment\natss.yaml
 	EndProjectSection
 EndProject
@@ -51,9 +52,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStore", "EventStore", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure", "src\Channels\EventStore\Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure\Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.csproj", "{7737BE20-87BB-4E67-AAC3-61FF0734D5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuroglia.K8s.Eventing.Channels.EventStore.Api", "src\Channels\EventStore\Neuroglia.K8s.Eventing.Channels.EventStore.Api\Neuroglia.K8s.Eventing.Channels.EventStore.Api.csproj", "{53F370CB-29EF-4FBF-B88A-BBC93E9125A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuroglia.K8s.Eventing.Channels.EventStore.Api", "src\Channels\EventStore\Neuroglia.K8s.Eventing.Channels.EventStore.Api\Neuroglia.K8s.Eventing.Channels.EventStore.Api.csproj", "{53F370CB-29EF-4FBF-B88A-BBC93E9125A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuroglia.K8s.Eventing.Channels.EventStore.Application", "src\Channels\EventStore\Neuroglia.K8s.Eventing.Channels.EventStore.Application\Neuroglia.K8s.Eventing.Channels.EventStore.Application.csproj", "{0EA7A592-FD70-41C5-B5D7-10CAC3822017}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuroglia.K8s.Eventing.Channels.EventStore.Application", "src\Channels\EventStore\Neuroglia.K8s.Eventing.Channels.EventStore.Application\Neuroglia.K8s.Eventing.Channels.EventStore.Application.csproj", "{0EA7A592-FD70-41C5-B5D7-10CAC3822017}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

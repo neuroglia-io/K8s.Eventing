@@ -1,5 +1,7 @@
 using CloudNative.CloudEvents;
 using EventStore.ClientAPI;
+using EventStore.ClientAPI.Common.Log;
+using EventStore.ClientAPI.Projections;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +16,8 @@ using Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Configuration;
 using Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Services;
 using Neuroglia.Mediation;
 using Neuroglia.StartupTasks;
+using System;
+using System.Net;
 
 namespace Neuroglia.K8s.Eventing.Channels.EventStore.Api
 {
@@ -61,10 +65,18 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Api
             });
             services.AddSingleton(provider =>
             {
-                ConnectionSettingsBuilder settingsBuilder = ConnectionSettings.Create();
+                ConnectionSettingsBuilder settingsBuilder = ConnectionSettings.Create()
+                    .DisableTls()
+                    .KeepReconnecting();
                 return EventStoreConnection.Create(this.ApplicationOptions.EventStore.ConnectionString, settingsBuilder, "CloudEventsChannel");
             });
+            services.AddSingleton(provider =>
+            {
+                return new ProjectionsManager(new ConsoleLogger(), new DnsEndPoint(this.ApplicationOptions.EventStore.Host, this.ApplicationOptions.EventStore.HttpPort), TimeSpan.FromMilliseconds(3000), httpSchema: "http");
+            });
             services.AddSingleton<IEventChannel, EventChannel>();
+            services.AddStartupTask<EventStoreInitializationTask>();
+            services.AddStartupTask<ProjectionsInitializationTask>();
             services.AddStartupTask<EventChannelInitializationTask>();
             services.AddHealthChecks()
                 .AddCheck<StartupTasksHealthCheck>("Startup Tasks");

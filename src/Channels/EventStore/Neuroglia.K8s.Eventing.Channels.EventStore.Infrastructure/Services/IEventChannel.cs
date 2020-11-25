@@ -8,7 +8,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Services
 {
 
     /// <summary>
-    /// Defines the fundamentals of a service used to wrap a NATS Streaming channel
+    /// Defines the fundamentals of a service used to wrap an EventStore channel
     /// </summary>
     public interface IEventChannel
         : IDisposable

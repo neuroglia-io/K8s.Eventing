@@ -18,7 +18,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.Commands
         /// Initializes a new <see cref="PublishCloudEventCommandHandler"/>
         /// </summary>
         /// <param name="logger">The service used to perform logging</param>
-        /// <param name="channel">The service that wraps the the underlying NATS Streaming connection</param>
+        /// <param name="channel">The service that wraps the the underlying EventStore connection</param>
         public PublishCloudEventCommandHandler(ILogger<PublishCloudEventCommandHandler> logger, IEventChannel channel)
         {
             this.Logger = logger;
@@ -31,16 +31,16 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.Commands
         protected ILogger Logger { get; }
 
         /// <summary>
-        /// Gets the service that wraps the the underlying NATS Streaming connection
+        /// Gets the service that wraps the the underlying EventStore connection
         /// </summary>
         protected IEventChannel Channel { get; }
 
         /// <inheritdoc/>
         public virtual async Task<IOperationResult> Handle(PublishCloudEventCommand request, CancellationToken cancellationToken)
         {
-            this.Logger.LogInformation("Publishing cloud event to the underlying NATS Streaming sink...");
+            this.Logger.LogInformation("Publishing cloud event to the underlying EventStore sink...");
             await this.Channel.PublishAsync(request.Event, cancellationToken);
-            this.Logger.LogInformation("Cloud event published to the underlying NATS Streaming sink.");
+            this.Logger.LogInformation("Cloud event published to the underlying EventStore sink.");
             return this.Ok();
         }
 

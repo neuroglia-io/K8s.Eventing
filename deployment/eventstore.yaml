@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: eventstore
+  labels:
+    name: eventstore
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: eventstore
+  namespace: eventstore
+  labels:
+    app: eventstore
+spec:
+  serviceName: eventstore
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventstore
+  template:
+    metadata:
+      labels:
+        app: eventstore
+    spec:
+      containers:
+        - name: eventstore
+          image: eventstore/eventstore:release-5.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1112
+              name: tcp-int
+            - containerPort: 1113
+              name: tcp-ext
+            - containerPort: 2112
+              name: http-int  
+            - containerPort: 2113
+              name: http-ext  
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/eventstore
+          env:
+            - name: EVENTSTORE_EXT_HTTP_PORT
+              value: "2113"
+            - name: EVENTSTORE_EXT_TCP_PORT
+              value: "1113"
+            - name: EVENTSTORE_INT_HTTP_PREFIXES
+              value: http://*:2112/
+            - name: EVENTSTORE_EXT_HTTP_PREFIXES
+              value: http://*:2113/
+            - name: EVENTSTORE_RUN_PROJECTIONS
+              value: All
+            - name: EVENTSTORE_START_STANDARD_PROJECTIONS
+              value: "true"
+            - name: EVENTSTORE_EXT_IP
+              value: "0.0.0.0"
+            - name: EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP
+              value: "true"
+            - name: EVENTSTORE_ENABLE_EXTERNAL_TCP
+              value: "true"
+      volumes:
+        - name: data
+          emptyDir: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventstore
+  namespace: eventstore
+  labels:
+    app: eventstore
+spec:
+  ports:
+    - port: 1112
+      name: tcp-int
+    - port: 1113
+      name: tcp-ext
+    - port: 2112
+      name: http-int  
+    - port: 2113
+      name: http-ext  
+  selector:
+    app: eventstore

@@ -1,13 +1,13 @@
 apiVersion: eventing.k8s.neuroglia.io/v1alpha1
 kind: Channel
 metadata:
-  name: natss
+  name: natss-channel
   namespace: neuroglia-eventing
   labels:
-    name: natss
+    name: natss-channel
 spec:
   container: 
-    name: natss
+    name: natss-channel
     image: neuroglia.io/eventing/channels/natss:1.0
     imagePullPolicy: IfNotPresent
     ports:

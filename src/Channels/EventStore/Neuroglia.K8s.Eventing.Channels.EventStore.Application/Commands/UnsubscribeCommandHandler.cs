@@ -19,7 +19,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.Commands
         /// Initializes a new <see cref="UnsubscribeCommandHandler"/>
         /// </summary>
         /// <param name="logger">The service used to perform logging</param>
-        /// <param name="channel">The service that wraps the the underlying NATS Streaming connection</param>
+        /// <param name="channel">The service that wraps the the underlying EventStore connection</param>
         public UnsubscribeCommandHandler(ILogger<UnsubscribeCommandHandler> logger, IEventChannel channel)
         {
             this.Logger = logger;
@@ -32,16 +32,16 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.Commands
         protected ILogger Logger { get; }
 
         /// <summary>
-        /// Gets the service that wraps the the underlying NATS Streaming connection
+        /// Gets the service that wraps the the underlying EventStore connection
         /// </summary>
         protected IEventChannel Channel { get; }
 
         /// <inheritdoc/>
         public virtual async Task<IOperationResult> Handle(UnsubscribeCommand request, CancellationToken cancellationToken)
         {
-            this.Logger.LogInformation("Deleting an existing subscription from the underlying NATS Streaming sink");
+            this.Logger.LogInformation("Deleting an existing subscription from the underlying EventStore sink");
             await this.Channel.UnsubscribeAsync(request.SubscriptionId, cancellationToken);
-            this.Logger.LogInformation("The subscription has been successfully deleted from the underlying NATS Streaming sink");
+            this.Logger.LogInformation("The subscription has been successfully deleted from the underlying EventStore sink");
             return this.Ok();
         }
 

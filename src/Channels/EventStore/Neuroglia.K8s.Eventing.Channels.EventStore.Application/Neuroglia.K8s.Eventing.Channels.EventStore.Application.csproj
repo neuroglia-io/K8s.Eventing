@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Projections\by-source.js" />
+    <None Remove="Resources\Projections\by-subject.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Projections\by-source.js" />
+    <EmbeddedResource Include="Resources\Projections\by-subject.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Neuroglia.StartupTasks" Version="1.0.0.1" />
   </ItemGroup>
 

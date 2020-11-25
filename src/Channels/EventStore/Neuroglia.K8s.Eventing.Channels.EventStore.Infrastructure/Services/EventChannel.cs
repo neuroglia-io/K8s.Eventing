@@ -30,14 +30,14 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Services
 
         private object _Lock = new object();
 
-        private const string CloudEventStreamName = "cloudevent-channelstream";
+        private const string CloudEventStreamName = "cloudevents-stream";
 
         /// <summary>
         /// Initializes a new <see cref="EventChannel"/>
         /// </summary>
         /// <param name="logger">The service used to perform logging</param>
         /// <param name="applicationOptions">The service used to access the current <see cref="ApplicationOptions"/></param>
-        /// <param name="eventStoreConnection">The underlying NATS Streaming connection</param>
+        /// <param name="eventStoreConnection">The underlying EventStore connection</param>
         /// <param name="httpClientFactory">The service used to create new <see cref="System.Net.Http.HttpClient"/> instances</param>
         public EventChannel(ILogger<EventChannel> logger, IOptions<ApplicationOptions> applicationOptions, IEventStoreConnection eventStoreConnection, IHttpClientFactory httpClientFactory)
         {
@@ -122,7 +122,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Services
         /// <returns>A new awaitable <see cref="Task"/></returns>
         protected virtual async Task SubscribeAsync(SubscriptionOptionsDto subscriptionOptions, bool persist, CancellationToken cancellationToken = default)
         {
-            string streamId = this.GetEventStreamFor(subscriptionOptions);
+            string streamId = this.GetEventStreamIdFor(subscriptionOptions);
             object subscriptionSource;
             if (string.IsNullOrWhiteSpace(subscriptionOptions.DurableName))
             {
@@ -157,6 +157,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Services
                     this.SubscriptionRegistry.InsertKey(subscriptionOptions.Id, JsonConvert.SerializeObject(subscriptionOptions), false);
                 }
             }
+            this.Logger.LogInformation("Created a new EventStore subscription to stream '{streamId}'", streamId);
         }
 
         /// <inheritdoc/>
@@ -168,11 +169,11 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Services
         }
 
         /// <summary>
-        /// Gets the name of the stream the specified <see cref="SubscriptionOptionsDto"/> applies to
+        /// Gets the id of the stream the specified <see cref="SubscriptionOptionsDto"/> applies to
         /// </summary>
-        /// <param name="subscriptionOptions">The <see cref="SubscriptionOptionsDto"/> to get the stream name for</param>
-        /// <returns>The name of the stream the specified <see cref="SubscriptionOptionsDto"/> applies to</returns>
-        protected virtual string GetEventStreamFor(SubscriptionOptionsDto subscriptionOptions)
+        /// <param name="subscriptionOptions">The <see cref="SubscriptionOptionsDto"/> to get the stream id for</param>
+        /// <returns>The id of the stream the specified <see cref="SubscriptionOptionsDto"/> applies to</returns>
+        protected virtual string GetEventStreamIdFor(SubscriptionOptionsDto subscriptionOptions)
         {
             if (!string.IsNullOrWhiteSpace(subscriptionOptions.Subject))
                 return $"$cloudevent-subject-{subscriptionOptions.Subject}";

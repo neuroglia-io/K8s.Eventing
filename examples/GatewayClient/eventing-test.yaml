@@ -14,7 +14,7 @@ metadata:
   name: broker
   namespace: eventing-test
 spec:
-  channel: natss
+  channel: eventstore
 
 ---
 
@@ -52,7 +52,7 @@ spec:
         - name: BROKER_URI
           value: http://broker/events/
         - name: CHANNEL
-          value: natss
+          value: eventstore
         - name: POD_NAME
           value: gatewayclient
         - name: POD_NAMESPACE

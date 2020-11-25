@@ -19,7 +19,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.StartupTasks
         /// </summary>
         /// <param name="logger">The service used to perform logging</param>
         /// <param name="startupTaskManager">The service used to manage <see cref="IStartupTask"/>s</param>
-        /// <param name="channel">The service that wraps the the underlying NATS Streaming connection</param>
+        /// <param name="channel">The service that wraps the the underlying EventStore connection</param>
         public EventChannelInitializationTask(ILogger<EventChannelInitializationTask> logger, IStartupTaskManager startupTaskManager, IEventChannel channel)
             : base(startupTaskManager)
         {
@@ -33,7 +33,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.StartupTasks
         protected ILogger Logger { get; }
 
         /// <summary>
-        /// Gets the service that wraps the the underlying NATS Streaming connection
+        /// Gets the service that wraps the the underlying EventStore connection
         /// </summary>
         protected IEventChannel Channel { get; }
 
