@@ -4,6 +4,7 @@ metadata:
   name: eventstore
   labels:
     name: eventstore
+    istio-injection: enabled
 
 ---
 

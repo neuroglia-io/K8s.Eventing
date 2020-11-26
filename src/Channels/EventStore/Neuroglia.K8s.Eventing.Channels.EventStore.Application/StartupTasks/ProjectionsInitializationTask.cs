@@ -56,7 +56,8 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.StartupTasks
             UserCredentials credentials = new UserCredentials(this.ApplicationOptions.EventStore.Username, this.ApplicationOptions.EventStore.Password);
             try
             {
-                using(Stream stream = typeof(EventChannelInitializationTask).Assembly.GetManifestResourceStream(ApplicationConstants.Resources.Projections.ByCloudEventSubject))
+                this.Logger.LogInformation($"Creating the continuous projection '{ApplicationConstants.Projections.ByCloudEventSubject}'...");
+                using (Stream stream = typeof(EventChannelInitializationTask).Assembly.GetManifestResourceStream(ApplicationConstants.Resources.Projections.ByCloudEventSubject))
                 {
                     using(StreamReader streamReader = new StreamReader(stream))
                     {
@@ -64,6 +65,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.StartupTasks
                     }
                 }
                 await this.ProjectionsManager.CreateContinuousAsync(ApplicationConstants.Projections.ByCloudEventSubject, query, credentials);
+                this.Logger.LogInformation($"The continuous projection '{ApplicationConstants.Projections.ByCloudEventSubject}' has been successfully created");
             }
             catch (Exception ex)
             {
@@ -71,6 +73,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.StartupTasks
             }
             try
             {
+                this.Logger.LogInformation($"Creating the continuous projection '{ApplicationConstants.Projections.ByCloudEventSource}'...");
                 using (Stream stream = typeof(EventChannelInitializationTask).Assembly.GetManifestResourceStream(ApplicationConstants.Resources.Projections.ByCloudEventSource))
                 {
                     using (StreamReader streamReader = new StreamReader(stream))
@@ -79,6 +82,7 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Application.StartupTasks
                     }
                 }
                 await this.ProjectionsManager.CreateContinuousAsync(ApplicationConstants.Projections.ByCloudEventSource, query, credentials);
+                this.Logger.LogInformation($"The continuous projection '{ApplicationConstants.Projections.ByCloudEventSource}' has been successfully created");
             }
             catch (Exception ex)
             {

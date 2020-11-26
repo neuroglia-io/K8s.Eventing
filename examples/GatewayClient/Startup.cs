@@ -1,9 +1,10 @@
 using CloudNative.CloudEvents;
+using GatewayClient.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using GatewayClient.Services;
+using Neuroglia.AspNetCore.Http;
 using System;
 
 namespace GatewayClient
@@ -26,6 +27,7 @@ namespace GatewayClient
                 {
                     options.JsonSerializerOptions.IgnoreNullValues = true;
                 });
+            services.AddIstioHeadersPropagation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
