@@ -39,6 +39,7 @@ namespace Neuroglia.Mediation
         /// <typeparam name="TCommand">The type of <see cref="ICommand"/> handled by the extended <see cref="ICommandHandler{TCommand}"/></typeparam>
         /// <param name="handler">The extended <see cref="ICommandHandler{TCommand}"/></param>
         /// <param name="errorCode">The code of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
+        /// <param name="errorMessage">The message of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
         /// <returns>A new <see cref="IOperationResult"/></returns>
         public static IOperationResult BadRequest<TCommand>(this ICommandHandler<TCommand> handler, string errorCode, string errorMessage)
             where TCommand : ICommand<IOperationResult>
@@ -77,6 +78,7 @@ namespace Neuroglia.Mediation
         /// <typeparam name="TCommand">The type of <see cref="ICommand"/> handled by the extended <see cref="ICommandHandler{TCommand}"/></typeparam>
         /// <param name="handler">The extended <see cref="ICommandHandler{TCommand}"/></param>
         /// <param name="errorCode">The code of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
+        /// <param name="errorMessage">The message of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
         /// <returns>A new <see cref="IOperationResult"/></returns>
         public static IOperationResult NotFound<TCommand>(this ICommandHandler<TCommand> handler, string errorCode, string errorMessage)
             where TCommand : ICommand<IOperationResult>
@@ -115,6 +117,7 @@ namespace Neuroglia.Mediation
         /// <typeparam name="TCommand">The type of <see cref="ICommand"/> handled by the extended <see cref="ICommandHandler{TCommand}"/></typeparam>
         /// <param name="handler">The extended <see cref="ICommandHandler{TCommand}"/></param>
         /// <param name="errorCode">The code of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
+        /// <param name="errorMessage">The message of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
         /// <returns>A new <see cref="IOperationResult"/></returns>
         public static IOperationResult NotModified<TCommand>(this ICommandHandler<TCommand> handler, string errorCode, string errorMessage)
             where TCommand : ICommand<IOperationResult>
@@ -169,6 +172,7 @@ namespace Neuroglia.Mediation
         /// <typeparam name="T">The type of data returned by the operation</typeparam>
         /// <param name="handler">The extended <see cref="ICommandHandler{TCommand}"/></param>
         /// <param name="errorCode">The code of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
+        /// <param name="errorMessage">The message of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
         /// <returns>A new <see cref="IOperationResult"/></returns>
         public static IOperationResult<T> BadRequest<TCommand, T>(this ICommandHandler<TCommand, T> handler, string errorCode, string errorMessage)
             where TCommand : ICommand<IOperationResult<T>, T>
@@ -209,6 +213,7 @@ namespace Neuroglia.Mediation
         /// <typeparam name="T">The type of data returned by the operation</typeparam>
         /// <param name="handler">The extended <see cref="ICommandHandler{TCommand}"/></param>
         /// <param name="errorCode">The code of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
+        /// <param name="errorMessage">The message of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
         /// <returns>A new <see cref="IOperationResult"/></returns>
         public static IOperationResult<T> NotFound<TCommand, T>(this ICommandHandler<TCommand, T> handler, string errorCode, string errorMessage)
             where TCommand : ICommand<IOperationResult<T>, T>
@@ -249,6 +254,7 @@ namespace Neuroglia.Mediation
         /// <typeparam name="T">The type of data returned by the operation</typeparam>
         /// <param name="handler">The extended <see cref="ICommandHandler{TCommand}"/></param>
         /// <param name="errorCode">The code of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
+        /// <param name="errorMessage">The message of the <see cref="Error"/> contained by the <see cref="IOperationResult"/> to create</param>
         /// <returns>A new <see cref="IOperationResult"/></returns>
         public static IOperationResult<T> NotModified<TCommand, T>(this ICommandHandler<TCommand, T> handler, string errorCode, string errorMessage)
             where TCommand : ICommand<IOperationResult<T>, T>

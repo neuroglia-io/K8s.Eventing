@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+
+  gateway:
+    image: ${DOCKER_REGISTRY-}neuroglia.io/eventing/gateway:1.0
+    build:
+      context: .
+      dockerfile: ../../src/Gateway/Neuroglia.K8s.Eventing.Gateway.Api/Dockerfile
+
+  eventstore:
+    image: ${DOCKER_REGISTRY-}neuroglia.io/eventing/channels/eventstore:1.0
+    build:
+      context: .
+      dockerfile: ../../src/Channels/EventStore/Neuroglia.K8s.Eventing.Channels.EventStore.Api/Dockerfile
+
+  natss:
+    image: ${DOCKER_REGISTRY-}neuroglia.io/eventing/channels/natss:1.0
+    build:
+      context: .
+      dockerfile: ../../src/Channels/NATSS/Neuroglia.K8s.Eventing.Channels.Nats.Api/Dockerfile

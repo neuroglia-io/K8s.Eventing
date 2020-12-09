@@ -25,7 +25,6 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
     {
 
         private CancellationTokenSource _StoppingTokenSource = new CancellationTokenSource();
-        private Task _ExecutingTask;
 
         /// <summary>
         /// Initializes a new <see cref="ResourceController"/>
@@ -222,7 +221,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
             catch(HttpOperationException ex)
             {
                 this.Logger.LogError($"An error occured while creating the deployment for the channel with name '{{resourceName}}': the server responded with a non-success status code '{{statusCode}}'.{Environment.NewLine}Details: {{responseContent}}", channel.Name(), ex.Response.StatusCode, ex.Response.Content);
-                throw ex;
+                throw;
             }
         }
 
@@ -255,7 +254,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
             catch (HttpOperationException ex)
             {
                 this.Logger.LogError($"An error occured while creating the service for the channel with name '{{resourceName}}': the server responded with a non-success status code '{{statusCode}}'.{Environment.NewLine}Details: {{responseContent}}", channel.Name(), ex.Response.StatusCode, ex.Response.Content);
-                throw ex;
+                throw;
             }
         }
 
@@ -312,7 +311,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
             catch(HttpOperationException ex)
             {
                 this.Logger.LogError($"An error occured while deleting the service for the channel with name '{{resourceName}}': the server responded with a non-success status code '{{statusCode}}'.{Environment.NewLine}Details: {{responseContent}}", channel.Name(), ex.Response.StatusCode, ex.Response.Content);
-                throw ex;
+                throw;
             }
         }
 
@@ -332,7 +331,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
             catch (HttpOperationException ex)
             {
                 this.Logger.LogError($"An error occured while deleting the deployment for the channel with name '{{resourceName}}': the server responded with a non-success status code '{{statusCode}}'.{Environment.NewLine}Details: {{responseContent}}", channel.Name(), ex.Response.StatusCode, ex.Response.Content);
-                throw ex;
+                throw;
             }
         }
 
@@ -379,11 +378,28 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
         {
             if (!this.ChannelManager.TryGetChannel(subscription.Spec.Channel, out IChannel channel))
                 return;
+            if (string.IsNullOrWhiteSpace(subscription.Spec.Id))
+            {
+                try
+                {
+                    this.Logger.LogInformation("Updating the subscription with name '{resourceName}'...", subscription.Name());
+                    subscription.Spec.Id = Guid.NewGuid().ToString();
+                    await this.KubernetesClient.ReplaceNamespacedCustomObjectAsync(subscription, subscription.ApiGroup(), subscription.ApiGroupVersion(), subscription.Namespace(), SubscriptionDefinition.PLURAL, subscription.Name());
+                    this.Logger.LogInformation("The subscription with name '{resourceName}' has been successfully updated", subscription.Name());
+                }
+                catch (HttpOperationException ex)
+                {
+                    this.Logger.LogError($"An error occured while updating the status of the CRD '{{resourceKind}}' with name '{{resourceName}}': the server responded with a non-success status code '{{statusCode}}'.{Environment.NewLine}Details: {{responseContent}}", subscription.Kind, subscription.Name(), ex.Response.StatusCode, ex.Response.Content);
+                }
+            }   
             SubscriptionOptionsDto subscriptionOptions = new SubscriptionOptionsDto()
             {
                 Id = subscription.Spec.Id,
                 DurableName = subscription.Spec.IsDurable ? subscription.Spec.Id : null,
-                Subject = subscription.Spec.Subject
+                Subject = subscription.Spec.Subject,
+                Source = subscription.Spec.Source?.OriginalString,
+                Type = subscription.Spec.Type,
+                StreamPosition = subscription.Spec.Position
             };
             await channel.SubscribeAsync(subscriptionOptions);
             this.RegisterSubscription(subscription);

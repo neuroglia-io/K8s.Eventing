@@ -218,10 +218,12 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Services
                 try
                 {
                     await this.DispatchEventAsync(subscriptionId, e);
-                    subscription.Acknowledge(e.Event.EventId);
+                    subscription.Acknowledge(e);
+                    this.Logger.LogInformation("A cloud event originating from the subscription with id '{subscriptionId}' has been successfully acknowledged.");
                 }
                 catch(Exception ex)
                 {
+                    this.Logger.LogError($"An error occured while dispatching a cloud event originating from the subscription with id '{{subscriptionId}}' to the gateway. The cloud event will be parked.{Environment.NewLine}Details: {{ex}}", subscriptionId, ex.Message);
                     subscription.Fail(e, PersistentSubscriptionNakEventAction.Park, ex.Message);
                 }
             };
@@ -367,23 +369,35 @@ namespace Neuroglia.K8s.Eventing.Channels.EventStore.Infrastructure.Services
         /// <returns>A new awaitable <see cref="Task"/></returns>
         protected virtual async Task DispatchEventAsync(string subscriptionId, ResolvedEvent e)
         {
-            this.Logger.LogInformation("An event has been received from the underlying EventStore sink.");
-            this.Logger.LogInformation("Dispatching the resulting cloud event to the gateway...");
-            CloudEvent cloudEvent = CloudEventBuilder.FromEvent(this.EventFormatter.DecodeJObject(JsonConvert.DeserializeObject<JObject>(Encoding.UTF8.GetString(e.Event.Data))))
-                .WithSubscriptionId(subscriptionId)
-                .WithSequence((ulong)e.Event.EventNumber)
-                .Build();
-            CloudEventContent cloudEventContent = new CloudEventContent(cloudEvent, ContentMode.Structured, new JsonEventFormatter());
-            using (HttpResponseMessage response = await this.HttpClient.PostAsync("pub", cloudEventContent))
+            try
             {
-                string content = await response.Content?.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
+                this.Logger.LogInformation("An event has been received from the underlying EventStore sink.");
+                this.Logger.LogInformation("Dispatching the resulting cloud event to the gateway...");
+                CloudEvent cloudEvent = CloudEventBuilder.FromEvent(this.EventFormatter.DecodeJObject(JsonConvert.DeserializeObject<JObject>(Encoding.UTF8.GetString(e.Event.Data))))
+                    .WithSubscriptionId(subscriptionId)
+                    .WithSequence((ulong)e.Event.EventNumber)
+                    .Build();
+                CloudEventContent cloudEventContent = new CloudEventContent(cloudEvent, ContentMode.Structured, new JsonEventFormatter());
+                using (HttpResponseMessage response = await this.HttpClient.PostAsync("pub", cloudEventContent))
                 {
-                    this.Logger.LogError($"An error occured while dispatching a cloud event of type '{{eventType}}' to the eventing controller: the remote server response with a '{{statusCode}}' status code.{Environment.NewLine}Details: {{responseContent}}", cloudEvent.Type, response.StatusCode, content);
-                    response.EnsureSuccessStatusCode();
+                    string content = await response.Content?.ReadAsStringAsync();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        this.Logger.LogError($"An error occured while dispatching a cloud event of type '{{eventType}}' to the eventing controller: the remote server response with a '{{statusCode}}' status code.{Environment.NewLine}Details: {{responseContent}}", cloudEvent.Type, response.StatusCode, content);
+                        response.EnsureSuccessStatusCode();
+                    }
                 }
+                this.Logger.LogInformation("The cloud event has been successfully dispatched to the gateway.");
             }
-            this.Logger.LogInformation("The cloud event has been successfully dispatched to the gateway.");
+            catch(HttpRequestException)
+            {
+                throw;
+            }
+            catch(Exception ex)
+            {
+                this.Logger.LogError($"An error occured while dispatching a cloud event to the gateway.{Environment.NewLine}Details: {{ex}}", ex.Message);
+                throw;
+            }
         }
 
         /// <summary>

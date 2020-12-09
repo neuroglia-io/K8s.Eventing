@@ -48,6 +48,12 @@ namespace Neuroglia.K8s.Eventing.Resources
         public bool IsDurable { get; set; }
 
         /// <summary>
+        /// Gets/sets a long representing the position in the stream to start reading events from
+        /// </summary>
+        [JsonProperty(PropertyName = "position")]
+        public long Position { get; set; }
+
+        /// <summary>
         /// Gets/sets an <see cref="IList{T}"/> containing the subscription's subscribers
         /// </summary>
         [JsonProperty(PropertyName = "subscriber")]

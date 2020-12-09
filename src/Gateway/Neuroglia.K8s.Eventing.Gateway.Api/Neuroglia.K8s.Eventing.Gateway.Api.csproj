@@ -21,6 +21,7 @@
 
   <PropertyGroup>
     <DocumentationFile>Neuroglia.K8s.Eventing.Gateway.Api.xml</DocumentationFile>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

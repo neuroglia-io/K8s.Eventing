@@ -23,6 +23,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="Neuroglia.AspNetCore.Http" Version="1.0.1" />
     <PackageReference Include="Neuroglia.Istio" Version="1.0.0" />
   </ItemGroup>
 

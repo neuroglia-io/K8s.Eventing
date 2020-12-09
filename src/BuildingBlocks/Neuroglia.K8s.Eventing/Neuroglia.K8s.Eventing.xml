@@ -300,6 +300,11 @@
             Gets/sets a boolean indicating whether or not the subscription is durable
             </summary>
         </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Position">
+            <summary>
+            Gets/sets a long representing the position in the stream to start reading events from
+            </summary>
+        </member>
         <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Subscriber">
             <summary>
             Gets/sets an <see cref="T:System.Collections.Generic.IList`1"/> containing the subscription's subscribers

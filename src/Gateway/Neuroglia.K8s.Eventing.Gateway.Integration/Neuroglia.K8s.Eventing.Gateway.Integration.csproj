@@ -18,4 +18,8 @@
     <DocumentationFile>Neuroglia.K8s.Eventing.Gateway.Integration.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Neuroglia.AspNetCore.Http" Version="1.0.1" />
+  </ItemGroup>
+
 </Project>

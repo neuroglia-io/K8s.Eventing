@@ -96,6 +96,7 @@
             <typeparam name="TCommand">The type of <see cref="T:Neuroglia.Mediation.ICommand"/> handled by the extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></typeparam>
             <param name="handler">The extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></param>
             <param name="errorCode">The code of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
+            <param name="errorMessage">The message of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
             <returns>A new <see cref="T:Neuroglia.Mediation.IOperationResult"/></returns>
         </member>
         <member name="M:Neuroglia.Mediation.ICommandHandlerExtensions.BadRequest``1(Neuroglia.Mediation.ICommandHandler{``0})">
@@ -122,6 +123,7 @@
             <typeparam name="TCommand">The type of <see cref="T:Neuroglia.Mediation.ICommand"/> handled by the extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></typeparam>
             <param name="handler">The extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></param>
             <param name="errorCode">The code of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
+            <param name="errorMessage">The message of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
             <returns>A new <see cref="T:Neuroglia.Mediation.IOperationResult"/></returns>
         </member>
         <member name="M:Neuroglia.Mediation.ICommandHandlerExtensions.NotFound``1(Neuroglia.Mediation.ICommandHandler{``0})">
@@ -148,6 +150,7 @@
             <typeparam name="TCommand">The type of <see cref="T:Neuroglia.Mediation.ICommand"/> handled by the extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></typeparam>
             <param name="handler">The extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></param>
             <param name="errorCode">The code of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
+            <param name="errorMessage">The message of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
             <returns>A new <see cref="T:Neuroglia.Mediation.IOperationResult"/></returns>
         </member>
         <member name="M:Neuroglia.Mediation.ICommandHandlerExtensions.NotModified``1(Neuroglia.Mediation.ICommandHandler{``0})">
@@ -186,6 +189,7 @@
             <typeparam name="T">The type of data returned by the operation</typeparam>
             <param name="handler">The extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></param>
             <param name="errorCode">The code of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
+            <param name="errorMessage">The message of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
             <returns>A new <see cref="T:Neuroglia.Mediation.IOperationResult"/></returns>
         </member>
         <member name="M:Neuroglia.Mediation.ICommandHandlerExtensions.BadRequest``2(Neuroglia.Mediation.ICommandHandler{``0,``1})">
@@ -214,6 +218,7 @@
             <typeparam name="T">The type of data returned by the operation</typeparam>
             <param name="handler">The extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></param>
             <param name="errorCode">The code of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
+            <param name="errorMessage">The message of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
             <returns>A new <see cref="T:Neuroglia.Mediation.IOperationResult"/></returns>
         </member>
         <member name="M:Neuroglia.Mediation.ICommandHandlerExtensions.NotFound``2(Neuroglia.Mediation.ICommandHandler{``0,``1})">
@@ -242,6 +247,7 @@
             <typeparam name="T">The type of data returned by the operation</typeparam>
             <param name="handler">The extended <see cref="T:Neuroglia.Mediation.ICommandHandler`1"/></param>
             <param name="errorCode">The code of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
+            <param name="errorMessage">The message of the <see cref="T:Neuroglia.Mediation.Error"/> contained by the <see cref="T:Neuroglia.Mediation.IOperationResult"/> to create</param>
             <returns>A new <see cref="T:Neuroglia.Mediation.IOperationResult"/></returns>
         </member>
         <member name="M:Neuroglia.Mediation.ICommandHandlerExtensions.NotModified``2(Neuroglia.Mediation.ICommandHandler{``0,``1})">
@@ -314,6 +320,15 @@
             <summary>
             Defines extensions for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>s
             </summary>
+        </member>
+        <member name="M:Neuroglia.Mediation.IServiceCollectionExtensions.AddCommandBehavior(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Reflection.Assembly)">
+            <summary>
+            Adds the specified command behavior type
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to configure</param>
+            <param name="behaviorType">The type of the command behavior type to add</param>
+            <param name="assemblyToScan">The <see cref="T:System.Reflection.Assembly"/> to scan for <see cref="T:Neuroglia.Mediation.ICommand"/>s</param>
+            <returns>The configured <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/></returns>
         </member>
         <member name="T:Neuroglia.Mediation.OperationArgumentException">
             <summary>

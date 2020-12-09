@@ -13,6 +13,13 @@ namespace Neuroglia.Mediation
     public static class IServiceCollectionExtensions
     {
 
+        /// <summary>
+        /// Adds the specified command behavior type
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> to configure</param>
+        /// <param name="behaviorType">The type of the command behavior type to add</param>
+        /// <param name="assemblyToScan">The <see cref="Assembly"/> to scan for <see cref="ICommand"/>s</param>
+        /// <returns>The configured <see cref="IServiceCollection"/></returns>
         public static IServiceCollection AddCommandBehavior(this IServiceCollection services, Type behaviorType, Assembly assemblyToScan)
         {
             foreach(Type type in assemblyToScan.GetTypes()

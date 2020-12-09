@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Neuroglia.CloudEvents" Version="1.0.1" />
+    <PackageReference Include="Neuroglia.CloudEvents" Version="1.0.1.1" />
     <PackageReference Include="STAN.Client" Version="0.3.0" />
   </ItemGroup>
 
