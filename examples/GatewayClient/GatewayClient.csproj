@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\BuildingBlocks\Neuroglia.Mediation\Neuroglia.Mediation.csproj" />
     <ProjectReference Include="..\..\src\Gateway\Neuroglia.K8s.Eventing.Gateway.Integration\Neuroglia.K8s.Eventing.Gateway.Integration.csproj" />
-    <PackageReference Include="Neuroglia.AspNetCore.Http" Version="1.0.1.1" />
+    <PackageReference Include="Neuroglia.AspNetCore.Http" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

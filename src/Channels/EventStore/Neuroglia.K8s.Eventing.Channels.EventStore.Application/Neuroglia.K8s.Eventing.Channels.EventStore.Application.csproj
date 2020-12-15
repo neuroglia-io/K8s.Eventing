@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Neuroglia.AspNetCore.Http" Version="1.0.1" />
     <PackageReference Include="Neuroglia.StartupTasks" Version="1.0.0.1" />
   </ItemGroup>
 

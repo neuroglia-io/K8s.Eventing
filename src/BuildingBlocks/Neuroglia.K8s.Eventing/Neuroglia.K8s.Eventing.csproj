@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Neuroglia.AspNetCore.Http" Version="1.0.1" />
-    <PackageReference Include="Neuroglia.K8s" Version="1.0.0.2" />
+    <PackageReference Include="Neuroglia.K8s" Version="1.0.0.3" />
   </ItemGroup>
 
 </Project>
