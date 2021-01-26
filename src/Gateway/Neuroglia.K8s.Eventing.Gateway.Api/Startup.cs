@@ -59,10 +59,15 @@ namespace Neuroglia.K8s.Eventing.Gateway.Api
             services.AddAutoMapper(typeof(PublishCloudEventToChannelCommand).Assembly);
             services.AddSingleton<ISubscriptionManager, SubscriptionManager>();
             services.AddSingleton<IChannelManager, ChannelManager>();
+
             services.AddSingleton<IResourceController, ResourceController>();
             services.AddStartupTask<ResourceControllerInitializationTask>();
+
+            services.AddSingleton<IEventRegistry, EventRegistry>();
+            services.AddStartupTask<EventRegistryInitializationTask>();
+
             services.AddHttpClient(typeof(Channel).Name);
-            services.AddHttpClient<ICloudEventDispatcher, CloudEventDispatcher>();
+            services.AddHttpClient<IEventDispatcher, EventDispatcher>();
             services.AddHealthChecks()
                 .AddCheck<StartupTasksHealthCheck>("Startup Tasks");
             services.AddIstioHeadersPropagation();

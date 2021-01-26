@@ -64,6 +64,11 @@
             Gets the 'Channel' CRD
             </summary>
         </member>
+        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.EventType">
+            <summary>
+            Gets the 'EventType' CRD
+            </summary>
+        </member>
         <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.Subscription">
             <summary>
             Gets the 'Subscription' CRD
@@ -203,6 +208,80 @@
         <member name="P:Neuroglia.K8s.Eventing.Resources.ChannelSpec.Container">
             <summary>
             Gets/sets the <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>'s specification
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.EventType">
+            <summary>
+            Represents an instance of an <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventType.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventType.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.EventTypeSpec)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventType.#ctor(k8s.Models.V1ObjectMeta)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventType.#ctor(Neuroglia.K8s.Eventing.Resources.EventTypeSpec)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            </summary>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/></param>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.EventTypeDefinition">
+            <summary>
+            Represents the <see cref="T:Neuroglia.K8s.CustomResourceDefinition"/> used to configure an event type 
+            </summary>
+        </member>
+        <member name="F:Neuroglia.K8s.Eventing.Resources.EventTypeDefinition.KIND">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeDefinition"/>'s kind
+            </summary>
+        </member>
+        <member name="F:Neuroglia.K8s.Eventing.Resources.EventTypeDefinition.PLURAL">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeDefinition"/>'s plural
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventTypeDefinition.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition"/>
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec">
+            <summary>
+            Represents the spec of a <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.EventTypeSpec.Subject">
+            <summary>
+            Gets/sets the event type's subject
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.EventTypeSpec.Type">
+            <summary>
+            Gets/sets the event's type
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.EventTypeSpec.Source">
+            <summary>
+            Gets/sets the event type's source
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.EventTypeSpec.DataSchema">
+            <summary>
+            Gets/sets the event type's data schema
             </summary>
         </member>
         <member name="T:Neuroglia.K8s.Eventing.Resources.Subscriber">

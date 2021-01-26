@@ -8,7 +8,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
     /// <summary>
     /// Defines the fundamentals of a service used to dispatch <see cref="CloudEvent"/>s to subscribers
     /// </summary>
-    public interface ICloudEventDispatcher
+    public interface IEventDispatcher
     {
 
         /// <summary>

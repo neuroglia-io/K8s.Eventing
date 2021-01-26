@@ -201,35 +201,82 @@
         <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ChannelManager.Dispose">
             <inheritdoc/>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher">
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventDispatcher">
             <summary>
-            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ICloudEventDispatcher"/> interface
+            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventDispatcher"/> interface
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher},Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager,System.Net.Http.HttpClient)">
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventDispatcher.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventDispatcher},Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager,System.Net.Http.HttpClient)">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher"/>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventDispatcher"/>
             </summary>
             <param name="logger">The service used to perform logging</param>
             <param name="subscriptionManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
             <param name="httpClient">The <see cref="T:System.Net.Http.HttpClient"/> used to dispatch <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s to subscribers</param>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.Logger">
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventDispatcher.Logger">
             <summary>
             Gets the service used to perform logging
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.SubscriptionManager">
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventDispatcher.SubscriptionManager">
             <summary>
             Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.HttpClient">
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventDispatcher.HttpClient">
             <summary>
             Gets the <see cref="T:System.Net.Http.HttpClient"/> used to dispatch <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s to subscribers
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.CloudEventDispatcher.DispatchAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventDispatcher.DispatchAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry">
+            <summary>
+            Represents the default implementation of the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventRegistry"/> interface
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry},Microsoft.Extensions.Options.IOptions{Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions},k8s.IKubernetes,Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager,Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ISubscriptionManager)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry"/>
+            </summary>
+            <param name="serviceProvider">The current <see cref="T:System.IServiceProvider"/></param>
+            <param name="logger">The service used to perform logging</param>
+            <param name="options">The current <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions"/></param>
+            <param name="kubernetesClient">The service used to interact with the Kubernetes API</param>
+            <param name="channelManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s</param>
+            <param name="subscriptionManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.ISubscription"/>s</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry.ServiceProvider">
+            <summary>
+            Gets the current <see cref="T:System.IServiceProvider"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry.Logger">
+            <summary>
+            Gets the service used to perform logging
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry.Options">
+            <summary>
+            Gets the current <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Configuration.ApplicationOptions"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry.KubernetesClient">
+            <summary>
+            Gets the service used to interact with the Kubernetes API
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry.EventTypes">
+            <summary>
+            Gets an <see cref="T:System.Collections.IEnumerable"/> containing all known <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry.InitializeAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.EventRegistry.AddAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager">
@@ -258,16 +305,36 @@
             <param name="channel">The <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/> with the specified name</param>
             <returns>A boolean indicating whether or not the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/> with the specified name exists</returns>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ICloudEventDispatcher">
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventDispatcher">
             <summary>
             Defines the fundamentals of a service used to dispatch <see cref="T:CloudNative.CloudEvents.CloudEvent"/>s to subscribers
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ICloudEventDispatcher.DispatchAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventDispatcher.DispatchAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
             <summary>
             Dispatches the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to its subscribers
             </summary>
             <param name="cloudEvent">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to dispatch</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventRegistry">
+            <summary>
+            Defines the fundamentals of a service used to manage <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventRegistry.InitializeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Initializes the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventRegistry"/>
+            </summary>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventRegistry.AddAsync(CloudNative.CloudEvents.CloudEvent,System.Threading.CancellationToken)">
+            <summary>
+            Adds the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to the registry
+            </summary>
+            <param name="e">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to add</param>
             <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/></param>
             <returns>A new awaitable <see cref="T:System.Threading.Tasks.Task"/></returns>
         </member>

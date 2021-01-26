@@ -91,3 +91,40 @@ spec:
     kind: Subscription
 
 ---
+
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: eventtypes.eventing.k8s.neuroglia.io
+spec:
+  group: eventing.k8s.neuroglia.io
+  subresources:
+    status: {}
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+  additionalPrinterColumns:
+    - name: Type
+      type: string
+      description: The cloud event's type
+      JSONPath: .spec.type
+    - name: Source
+      type: string
+      description: The cloud event type's source uri
+      JSONPath: .spec.source
+    - name: Subject
+      type: string
+      description: The cloud event type's subject
+      JSONPath: .spec.subject
+    - name: DataSchema
+      type: string
+      description: The cloud event's data schema uri
+      JSONPath: .spec.dataSchema
+  scope: Namespaced
+  names:
+    plural: eventtypes
+    singular: eventtype
+    kind: EventType
+
+---

@@ -71,6 +71,10 @@ namespace Neuroglia.K8s.Eventing
             /// </summary>
             public static ChannelDefinition Channel = new ChannelDefinition();
             /// <summary>
+            /// Gets the 'EventType' CRD
+            /// </summary>
+            public static EventTypeDefinition EventType = new EventTypeDefinition();
+            /// <summary>
             /// Gets the 'Subscription' CRD
             /// </summary>
             public static SubscriptionDefinition Subscription = new SubscriptionDefinition();

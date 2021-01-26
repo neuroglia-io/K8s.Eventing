@@ -143,7 +143,7 @@
             Represents the service used to handle <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DispatchCloudEventToSubscribersCommand"/>s
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DispatchCloudEventToSubscribersCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Application.Commands.DispatchCloudEventToSubscribersCommandHandler},Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.ICloudEventDispatcher,System.Net.Http.IHttpClientFactory)">
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DispatchCloudEventToSubscribersCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Application.Commands.DispatchCloudEventToSubscribersCommandHandler},Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventDispatcher,System.Net.Http.IHttpClientFactory)">
             <summary>
             Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.DispatchCloudEventToSubscribersCommandHandler"/>
             </summary>
@@ -196,12 +196,13 @@
             Represents the service used to handle <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommand"/>s
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler},Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager)">
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler.#ctor(Microsoft.Extensions.Logging.ILogger{Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler},Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IChannelManager,Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventRegistry)">
             <summary>
             Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler"/>
             </summary>
             <param name="logger">The service used to perform logging</param>
             <param name="channelManager">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s</param>
+            <param name="eventRegistry">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>s</param>
         </member>
         <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler.Logger">
             <summary>
@@ -211,6 +212,11 @@
         <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler.ChannelManager">
             <summary>
             Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.IChannel"/>s
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler.EventRegistry">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>s
             </summary>
         </member>
         <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommandHandler.Handle(Neuroglia.K8s.Eventing.Gateway.Application.Commands.PublishCloudEventToChannelCommand,System.Threading.CancellationToken)">
@@ -225,6 +231,26 @@
             <summary>
             Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.Mapping.MappingProfile"/>
             </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.StartupTasks.EventRegistryInitializationTask">
+            <summary>
+            Represents the <see cref="T:Neuroglia.StartupTasks.StartupTask"/> used to initialize the <see cref="T:Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventRegistry"/> service
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.StartupTasks.EventRegistryInitializationTask.#ctor(Neuroglia.StartupTasks.IStartupTaskManager,Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services.IEventRegistry)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Gateway.Application.StartupTasks.EventRegistryInitializationTask"/>
+            </summary>
+            <param name="startupTaskManager">The service used to manage <see cref="T:Neuroglia.StartupTasks.StartupTask"/>s</param>
+            <param name="eventRegistry">The service used to manage <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>s</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Gateway.Application.StartupTasks.EventRegistryInitializationTask.EventRegistry">
+            <summary>
+            Gets the service used to manage <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Gateway.Application.StartupTasks.EventRegistryInitializationTask.ExecuteAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
         </member>
         <member name="T:Neuroglia.K8s.Eventing.Gateway.Application.StartupTasks.ResourceControllerInitializationTask">
             <summary>

@@ -11,19 +11,19 @@ namespace Neuroglia.K8s.Eventing.Gateway.Infrastructure.Services
 {
 
     /// <summary>
-    /// Represents the default implementation of the <see cref="ICloudEventDispatcher"/> interface
+    /// Represents the default implementation of the <see cref="IEventDispatcher"/> interface
     /// </summary>
-    public class CloudEventDispatcher
-        : ICloudEventDispatcher
+    public class EventDispatcher
+        : IEventDispatcher
     {
 
         /// <summary>
-        /// Initializes a new <see cref="CloudEventDispatcher"/>
+        /// Initializes a new <see cref="EventDispatcher"/>
         /// </summary>
         /// <param name="logger">The service used to perform logging</param>
         /// <param name="subscriptionManager">The service used to manage <see cref="ISubscription"/>s</param>
         /// <param name="httpClient">The <see cref="System.Net.Http.HttpClient"/> used to dispatch <see cref="CloudEvent"/>s to subscribers</param>
-        public CloudEventDispatcher(ILogger<CloudEventDispatcher> logger, ISubscriptionManager subscriptionManager, HttpClient httpClient)
+        public EventDispatcher(ILogger<EventDispatcher> logger, ISubscriptionManager subscriptionManager, HttpClient httpClient)
         {
             this.Logger = logger;
             this.SubscriptionManager = subscriptionManager;

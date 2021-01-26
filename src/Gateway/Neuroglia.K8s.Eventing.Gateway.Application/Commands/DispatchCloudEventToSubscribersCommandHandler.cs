@@ -22,7 +22,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
         /// <param name="logger">The service used to perform logging</param>
         /// <param name="dispatcher">The service used to dispatch <see cref="CloudEvent"/>s</param>
         /// <param name="httpClientFactory">The service used to create <see cref="System.Net.Http.HttpClient"/>s</param>
-        public DispatchCloudEventToSubscribersCommandHandler(ILogger<DispatchCloudEventToSubscribersCommandHandler> logger, ICloudEventDispatcher dispatcher, IHttpClientFactory httpClientFactory)
+        public DispatchCloudEventToSubscribersCommandHandler(ILogger<DispatchCloudEventToSubscribersCommandHandler> logger, IEventDispatcher dispatcher, IHttpClientFactory httpClientFactory)
         {
             this.Logger = logger;
             this.Dispatcher = dispatcher;
@@ -37,7 +37,7 @@ namespace Neuroglia.K8s.Eventing.Gateway.Application.Commands
         /// <summary>
         /// Gets the service used to dispatch <see cref="CloudEvent"/>s
         /// </summary>
-        protected ICloudEventDispatcher Dispatcher { get; }
+        protected IEventDispatcher Dispatcher { get; }
 
         /// <summary>
         /// Gets the <see cref="System.Net.Http.HttpClient"/> used to dispatch <see cref="CloudEvent"/>s to subscribers
