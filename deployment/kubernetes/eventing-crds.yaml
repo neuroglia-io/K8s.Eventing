@@ -1,130 +1,78 @@
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: channels.eventing.k8s.neuroglia.io
-spec:
-  group: eventing.k8s.neuroglia.io
-  subresources:
-    status: {}
-  versions:
-    - name: v1alpha1
-      served: true
-      storage: true
-  scope: Namespaced
-  names:
-    plural: channels
-    singular: channel
-    kind: Channel
-
----
-
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: brokers.eventing.k8s.neuroglia.io
-spec:
-  group: eventing.k8s.neuroglia.io
-  subresources:
-    status: {}
-  versions:
-    - name: v1alpha1
-      served: true
-      storage: true
-  additionalPrinterColumns:
-    - name: Channel
-      type: string
-      description: The broker's channel
-      JSONPath: .spec.channel
-    - name: Url
-      type: string
-      description: The url of the broker's service
-      JSONPath: .status.url
-  scope: Namespaced
-  names:
-    plural: brokers
-    singular: broker
-    kind: Broker
-
----
-
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: subscriptions.eventing.k8s.neuroglia.io
 spec:
-  group: eventing.k8s.neuroglia.io
-  subresources:
-    status: {}
-  versions:
-    - name: v1alpha1
-      served: true
-      storage: true
-  additionalPrinterColumns:
-    - name: Id
-      type: string
-      description: The subscription's id
-      JSONPath: .spec.id
-    - name: Channel
-      type: string
-      description: The channel the subscription is bound to
-      JSONPath: .spec.channel
-    - name: Subject
-      type: string
-      description: The CloudEvent subject the subscription applies to
-      JSONPath: .spec.subject
-    - name: Type
-      type: string
-      description: The CloudEvent type the subscription applies to
-      JSONPath: .spec.type
-    - name: Source
-      type: string
-      description: The CloudEvent source the subscription applies to
-      JSONPath: .spec.source
-    - name: IsDurable
-      type: boolean
-      description: A boolean indicating whether or not the subscription is durable
-      JSONPath: .spec.durable
   scope: Namespaced
   names:
     plural: subscriptions
     singular: subscription
     kind: Subscription
-
----
-
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: eventtypes.eventing.k8s.neuroglia.io
-spec:
   group: eventing.k8s.neuroglia.io
-  subresources:
-    status: {}
   versions:
     - name: v1alpha1
       served: true
       storage: true
-  additionalPrinterColumns:
-    - name: Type
-      type: string
-      description: The cloud event's type
-      JSONPath: .spec.type
-    - name: Source
-      type: string
-      description: The cloud event type's source uri
-      JSONPath: .spec.source
-    - name: Subject
-      type: string
-      description: The cloud event type's subject
-      JSONPath: .spec.subject
-    - name: DataSchema
-      type: string
-      description: The cloud event's data schema uri
-      JSONPath: .spec.dataSchema
-  scope: Namespaced
-  names:
-    plural: eventtypes
-    singular: eventtype
-    kind: EventType
-
----
+      schema:
+        openAPIV3Schema:
+          type: object
+          required:
+            - spec
+          properties:
+            spec:
+              type: object
+              required: 
+                - id
+                - channel
+              properties:
+                id:
+                  type: string
+                offset:
+                  type: integer
+                  minimum: -1
+                channel:
+                  type: string
+                filter:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                subscribers:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - url
+                    properties:
+                      url:
+                        type: string
+                      mode:
+                        type: string
+                        default: LoadBalanced
+                        enum:
+                          - LoadBalanced
+                          - Headless
+      additionalPrinterColumns:
+        - name: Id
+          type: string
+          description: The subscription's id
+          jsonPath: .spec.id
+        - name: Channel
+          type: string
+          description: The channel the subscription is bound to
+          jsonPath: .spec.channel
+        - name: Subject
+          type: string
+          description: The CloudEvent subject the subscription applies to
+          jsonPath: .spec.subject
+        - name: Type
+          type: string
+          description: The CloudEvent type the subscription applies to
+          jsonPath: .spec.type
+        - name: Source
+          type: string
+          description: The CloudEvent source the subscription applies to
+          jsonPath: .spec.source
+      subresources:
+        status: {}
+  

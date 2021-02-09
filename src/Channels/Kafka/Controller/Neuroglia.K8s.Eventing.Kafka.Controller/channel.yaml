@@ -1,0 +1,8 @@
+﻿apiVersion: kafka.eventing.k8s.neuroglia.io/v1alpha1
+kind: KafkaChannel
+metadata:
+  name: kafka-channel-test
+  namespace: neuroglia-eventing
+spec:
+  servers:
+    - confluent-cp-kafka.default:9092

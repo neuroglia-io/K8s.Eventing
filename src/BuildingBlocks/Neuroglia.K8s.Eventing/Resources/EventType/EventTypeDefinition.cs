@@ -18,10 +18,10 @@
         public const string PLURAL = "eventtypes";
 
         /// <summary>
-        /// Initializes a new <see cref="SubscriptionDefinition"/>
+        /// Initializes a new <see cref="V1SubscriptionDefinition"/>
         /// </summary>
         public EventTypeDefinition()
-            : base(EventingDefaults.ApiVersion, KIND, PLURAL)
+            : base(EventingDefaults.Resources.ApiVersion, KIND, PLURAL)
         {
 
         }

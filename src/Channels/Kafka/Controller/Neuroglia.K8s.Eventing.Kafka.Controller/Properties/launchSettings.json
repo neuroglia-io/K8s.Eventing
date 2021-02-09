@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Neuroglia.K8s.Eventing.Kafka.Controller": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+SUBSCRIPTION:
+-------------
+
+- Should dispatch only to its subscribers. (Bypass mediator and implement in the subscription class???)
+- Should reconsider the topic name for cloud events. Maybe one generic 'cloud-event' topic could be used instead (inability to use streaming when using a 'type' regex (assign vs subscribe) => NOK)
+
+DISPATCHING:
+------------
+
+- Implement quality of service
+- Implement retry policies to handle 503

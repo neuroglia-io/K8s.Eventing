@@ -1,9 +1,0 @@
-apiVersion: eventing.k8s.neuroglia.io/v1alpha1
-kind: EventType
-metadata:
-  name: mytype
-  namespace: neuroglia-eventing
-spec:
-  type: mytype
-  source: http://mysource.io/v1alpha1
-  subject: hello

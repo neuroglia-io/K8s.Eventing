@@ -1,0 +1,83 @@
+﻿apiVersion: v1
+kind: Namespace
+metadata:
+  name: neuroglia-eventing
+  labels:
+    name: neuroglia-eventing
+    istio-injection: enabled
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-channel
+  namespace: neuroglia-eventing
+  annotations:
+    traffic.sidecar.istio.io/excludeOutboundIPRanges: 10.96.0.1/32
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-channel
+      version: "1.0"
+  template:
+    metadata:
+      labels:
+        app: kafka-channel
+        version: "1.0"
+      annotations:
+        traffic.sidecar.istio.io/excludeOutboundIPRanges: 10.96.0.1/32
+    spec:
+      containers:
+      - name: kafka-channel
+        image: neuroglia.io/eventing/kafka-channel:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        - name: ASPNETCORE_URLS 
+          value: http://+:80
+        - name: POD
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: Kafka__Servers
+          value: confluent-cp-kafka.default:9092
+        - name: Kafka__DefaultConsumerGroupId
+          value: cloudevent-channels
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          failureThreshold: 30
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          failureThreshold: 30
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-channel
+  namespace: neuroglia-eventing
+  labels: 
+    app: kafka-channel
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: kafka-channel

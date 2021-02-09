@@ -1,0 +1,9 @@
+﻿apiVersion: eventing.k8s.neuroglia.io/v1alpha1
+kind: Subscription
+metadata:
+  name: test
+  namespace: neuroglia-eventing
+spec:
+  channel: kafka
+  subscribers:
+    - url: "https://webhook.site/0ecb72c2-1546-4777-b0dd-457deb92d912"

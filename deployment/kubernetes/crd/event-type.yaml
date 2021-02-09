@@ -1,0 +1,52 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: eventtypes.eventing.k8s.neuroglia.io
+spec:
+  scope: Namespaced
+  names:
+    plural: eventtypes
+    singular: eventtype
+    kind: EventType
+  group: eventing.k8s.neuroglia.io
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          required:
+            - spec
+          properties:
+            spec:
+              type: object
+              properties:
+                type:
+                  type: string
+                source:
+                  type: string
+                subject:
+                  type: string
+                dataSchema:
+                  type: string
+              required:
+                - type
+                - source
+      additionalPrinterColumns:
+        - name: Type
+          type: string
+          description: The cloud event's type
+          jsonPath: .spec.type
+        - name: Source
+          type: string
+          description: The cloud event type's source uri
+          jsonPath: .spec.source
+        - name: Subject
+          type: string
+          description: The cloud event type's subject
+          jsonPath: .spec.subject
+        - name: DataSchema
+          type: string
+          description: The cloud event's data schema uri
+          jsonPath: .spec.dataSchema

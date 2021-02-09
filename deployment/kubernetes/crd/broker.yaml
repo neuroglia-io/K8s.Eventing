@@ -1,0 +1,44 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: brokers.eventing.k8s.neuroglia.io
+spec:
+  scope: Namespaced
+  names:
+    plural: brokers
+    singular: broker
+    kind: Broker
+  group: eventing.k8s.neuroglia.io
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                container:
+                  type: object  
+                  x-kubernetes-preserve-unknown-fields: true
+              required:
+                - container
+          required:
+            - spec
+      additionalPrinterColumns:
+        - name: Channel
+          type: string
+          description: The broker's channel
+          jsonPath: .spec.channel
+        - name: Url
+          type: string
+          description: The url of the broker
+          jsonPath: .status.url
+        - name: Status
+          type: string
+          description: The status of the broker
+          jsonPath: .status.status
+      subresources:
+        status: {}

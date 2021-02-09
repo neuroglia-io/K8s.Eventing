@@ -10,31 +10,38 @@ namespace Neuroglia.K8s.Eventing
     {
 
         /// <summary>
-        /// Gets the default group for all Neuroglia Eventing resources
+        /// Exposes constants about Neuroglia Kubernetes CRDs
         /// </summary>
-        public const string Group = "eventing.k8s.neuroglia.io";
-        /// <summary>
-        /// Gets the default version for all Neuroglia Eventing resources
-        /// </summary>
-        public const string Version = "v1alpha1";
-
-        /// <summary>
-        /// Gets the default api version for all Neuroglia Eventing resources
-        /// </summary>
-        public static string ApiVersion = string.Join("/", Group, Version);
-
-        /// <summary>
-        /// Exposes constants about Neuroglia Kubernetes Eventing labels
-        /// </summary>
-        public static class Labels
+        public static class Resources
         {
 
-            private const string Prefix = "neuroglia-eventing-";
+            /// <summary>
+            /// Gets the default group for all Neuroglia Eventing resources
+            /// </summary>
+            public const string Group = "eventing.k8s.neuroglia.io";
 
             /// <summary>
-            /// Gets the label assigned to all channels
+            /// Gets the default version for all Neuroglia Eventing resources
             /// </summary>
-            public const string Channel = Prefix + "channel";
+            public const string Version = "v1alpha1";
+
+            /// <summary>
+            /// Gets the default api version for all Neuroglia Eventing resources
+            /// </summary>
+            public static string ApiVersion = string.Join("/", Group, Version);
+
+            /// <summary>
+            /// Gets the 'Broker' CRD
+            /// </summary>
+            public static V1BrokerDefinition Broker = new V1BrokerDefinition();
+            /// <summary>
+            /// Gets the 'EventType' CRD
+            /// </summary>
+            public static EventTypeDefinition EventType = new EventTypeDefinition();
+            /// <summary>
+            /// Gets the 'Subscription' CRD
+            /// </summary>
+            public static V1SubscriptionDefinition Subscription = new V1SubscriptionDefinition();
 
         }
 
@@ -53,31 +60,6 @@ namespace Neuroglia.K8s.Eventing
             /// Gets the http header used to indicate the origin of a cloud event
             /// </summary>
             public const string Origin = Prefix + "origin";
-
-        }
-
-        /// <summary>
-        /// Exposes constants about default Neuroglia Kubernetes Eventing resources
-        /// </summary>
-        public static class Resources
-        {
-
-            /// <summary>
-            /// Gets the 'Broker' CRD
-            /// </summary>
-            public static BrokerDefinition Broker = new BrokerDefinition();
-            /// <summary>
-            /// Gets the 'Channel' CRD
-            /// </summary>
-            public static ChannelDefinition Channel = new ChannelDefinition();
-            /// <summary>
-            /// Gets the 'EventType' CRD
-            /// </summary>
-            public static EventTypeDefinition EventType = new EventTypeDefinition();
-            /// <summary>
-            /// Gets the 'Subscription' CRD
-            /// </summary>
-            public static SubscriptionDefinition Subscription = new SubscriptionDefinition();
 
         }
 

@@ -20,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neuroglia.AspNetCore.Http" Version="1.0.1" />
-    <PackageReference Include="Neuroglia.K8s" Version="1.0.0.3" />
+    <PackageReference Include="CloudNative.CloudEvents" Version="1.3.80" />
+    <PackageReference Include="Neuroglia.K8s" Version="1.0.0.12" />
   </ItemGroup>
 
 </Project>

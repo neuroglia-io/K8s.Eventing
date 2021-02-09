@@ -3,8 +3,9 @@ using System;
 
 namespace Neuroglia.K8s.Eventing.Resources
 {
+
     /// <summary>
-    /// Represents the spec of a <see cref="EventType"/>
+    /// Represents the spec of a <see cref="EventTypeResource"/>
     /// </summary>
     public class EventTypeSpec
     {
@@ -30,8 +31,8 @@ namespace Neuroglia.K8s.Eventing.Resources
         /// <summary>
         /// Gets/sets the event type's data schema
         /// </summary>
-        [JsonProperty(PropertyName = "dataSchema")]
-        public Uri DataSchema { get; set; }
+        [JsonProperty(PropertyName = "schema")]
+        public Uri Schema { get; set; }
 
     }
 

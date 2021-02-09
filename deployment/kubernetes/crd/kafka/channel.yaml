@@ -1,0 +1,73 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: kafkachannels.kafka.eventing.k8s.neuroglia.io
+spec:
+  scope: Namespaced
+  names:
+    plural: kafkachannels
+    singular: kafkachannel
+    kind: KafkaChannel
+  group: kafka.eventing.k8s.neuroglia.io
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                servers:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 1
+              required:
+                - servers
+            status:
+              type: object
+              properties:
+                operational:
+                  type: boolean
+                  default: false
+                address:
+                  type: string
+                endpoints:
+                  type: object
+                  properties:
+                    pub:
+                      type: string
+                    sub:
+                      type: string
+          required:
+            - spec
+      additionalPrinterColumns:
+        - name: Name
+          type: string
+          description: The channel's name
+          jsonPath: .metadata.name
+        - name: Address
+          type: string
+          description: The channel's address
+          jsonPath: .status.address
+        - name: Pub
+          type: string
+          description: The channel's pub endpoint
+          jsonPath: .status.endpoints.pub
+        - name: Sub
+          type: string  
+          description: The channel's sub endpoint
+          jsonPath: .status.endpoints.sub
+        - name: Operational
+          type: boolean
+          description: Indicates whether or not the status is operational
+          jsonPath: .status.operational
+        - name: Servers
+          type: string
+          description: The Kafka servers the channel relies on
+          jsonPath: .spec.servers
+      subresources:
+        status: {}

@@ -1,0 +1,9 @@
+apiVersion: eventing.k8s.neuroglia.io/v1alpha1
+kind: Channel
+metadata:
+  name: kafka
+  namespace: neuroglia-eventing
+  labels:
+    name: kafka
+spec:
+  type: kafka

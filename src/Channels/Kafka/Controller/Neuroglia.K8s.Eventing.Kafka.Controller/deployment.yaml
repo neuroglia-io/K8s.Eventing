@@ -1,0 +1,35 @@
+﻿apiVersion: v1
+kind: Namespace
+metadata:
+  name: neuroglia-eventing
+  labels:
+    name: neuroglia-eventing
+    istio-injection: enabled
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-controller
+  namespace: neuroglia-eventing
+  annotations:
+    traffic.sidecar.istio.io/excludeOutboundIPRanges: 10.96.0.1/32
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-controller
+      version: "1.0"
+  template:
+    metadata:
+      labels:
+        app: kafka-controller
+        version: "1.0"
+      annotations:
+        traffic.sidecar.istio.io/excludeOutboundIPRanges: 10.96.0.1/32
+    spec:
+      containers:
+      - name: kafka-controller
+        image: neuroglia.io/eventing/kafka-controller:1.0
+        imagePullPolicy: IfNotPresent

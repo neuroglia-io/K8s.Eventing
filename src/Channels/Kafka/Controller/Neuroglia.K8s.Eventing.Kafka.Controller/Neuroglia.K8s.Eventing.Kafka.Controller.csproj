@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..\..\..</DockerfileContext>
+    <DockerfileTag>neuroglia.io/eventing/kafka-controller:1.0</DockerfileTag>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Authors>Charles d'Avernas</Authors>
+    <Company>Neuroglia SPRL</Company>
+    <Copyright>Copyright © 2020 - Neuroglia SPRL. All rights reserved</Copyright>
+    <PackageTags>neuroglia, eventing, channel, kafka, api</PackageTags>
+    <IsPackable>True</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="YamlDotNet" Version="9.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\Neuroglia.K8s.Eventing\Neuroglia.K8s.Eventing.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Neuroglia.K8s.Eventing.Kafka\Neuroglia.K8s.Eventing.Kafka.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\container.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

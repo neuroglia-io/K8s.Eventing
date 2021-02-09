@@ -4,34 +4,129 @@
         <name>Neuroglia.K8s.Eventing</name>
     </assembly>
     <members>
+        <member name="T:Neuroglia.K8s.Eventing.Controller`1">
+            <summary>
+            Represents the base class for all <see cref="T:Neuroglia.K8s.Eventing.IController"/> implementations
+            </summary>
+            <typeparam name="TResource">The type of <see cref="T:Neuroglia.K8s.ICustomResource"/> to control</typeparam>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Controller`1.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,k8s.IKubernetes,Neuroglia.K8s.ICustomResourceWatcher{`0})">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Controller`1"/>
+            </summary>
+            <param name="loggerFactory">The service used to create <see cref="T:Microsoft.Extensions.Logging.ILogger"/>s</param>
+            <param name="kubernetes">The service used to interact with the Kubernetes API</param>
+            <param name="resources">The service used to watch <see cref="T:Neuroglia.K8s.ICustomResource"/>s of the specified type</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Controller`1.ServiceProvider">
+            <summary>
+            Gets the current <see cref="T:System.IServiceProvider"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Controller`1.Logger">
+            <summary>
+            Gets the service used to perform logging
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Controller`1.Kubernetes">
+            <summary>
+            Gets the service used to interact with the Kubernetes API
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Controller`1.ResourceDefinition">
+            <summary>
+            Gets the <see cref="T:Neuroglia.K8s.CustomResourceDefinition"/> of the controlled <see cref="T:Neuroglia.K8s.ICustomResource"/> type
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Controller`1.Resources">
+            <summary>
+            Gets the service used to watch subscriptions
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Controller`1.Subscription">
+            <summary>
+            Gets the current subscription watch
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Controller`1.OnEvent(Neuroglia.K8s.IResourceEvent{`0})">
+            <summary>
+            Handles the specified <see cref="T:Neuroglia.K8s.IResourceEvent`1"/>
+            </summary>
+            <param name="e">The <see cref="T:Neuroglia.K8s.IResourceEvent`1"/> to handle</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Controller`1.OnError(System.Exception)">
+            <summary>
+            Handles an <see cref="T:System.Exception"/> that has occured while watching the <see cref="T:Neuroglia.K8s.ICustomResource"/>s of the specified type
+            </summary>
+            <param name="ex">The <see cref="T:System.Exception"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Controller`1.OnCompleted">
+            <summary>
+            Handles the completion of the subscription's stream
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Controller`1.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the <see cref="T:Neuroglia.K8s.Eventing.Controller`1"/>
+            </summary>
+            <param name="disposing">A boolean indicating whether or not the <see cref="T:Neuroglia.K8s.Eventing.Controller`1"/> is being disposed of</param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Controller`1.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.EventDeliveryMode">
+            <summary>
+            Enumerates all modes of cloud event delivery
+            </summary>
+        </member>
+        <member name="F:Neuroglia.K8s.Eventing.EventDeliveryMode.Unicast">
+            <summary>
+            Indicates that the cloud event should be published in a unicast fashion. Default.
+            </summary>
+        </member>
+        <member name="F:Neuroglia.K8s.Eventing.EventDeliveryMode.Multicast">
+            <summary>
+            Indicates that the cloud event must be publishes to all IPs registered behind the subscriber's DNS.
+            </summary>
+        </member>
         <member name="T:Neuroglia.K8s.Eventing.EventingDefaults">
             <summary>
             Exposes constants about Neuroglia Kubernetes Eventing
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Group">
+        <member name="T:Neuroglia.K8s.Eventing.EventingDefaults.Resources">
+            <summary>
+            Exposes constants about Neuroglia Kubernetes CRDs
+            </summary>
+        </member>
+        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.Group">
             <summary>
             Gets the default group for all Neuroglia Eventing resources
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Version">
+        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.Version">
             <summary>
             Gets the default version for all Neuroglia Eventing resources
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.ApiVersion">
+        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.ApiVersion">
             <summary>
             Gets the default api version for all Neuroglia Eventing resources
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.EventingDefaults.Labels">
+        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.Broker">
             <summary>
-            Exposes constants about Neuroglia Kubernetes Eventing labels
+            Gets the 'Broker' CRD
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Labels.Channel">
+        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.EventType">
             <summary>
-            Gets the label assigned to all channels
+            Gets the 'EventType' CRD
+            </summary>
+        </member>
+        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.Subscription">
+            <summary>
+            Gets the 'Subscription' CRD
             </summary>
         </member>
         <member name="T:Neuroglia.K8s.Eventing.EventingDefaults.Headers">
@@ -49,195 +144,225 @@
             Gets the http header used to indicate the origin of a cloud event
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.EventingDefaults.Resources">
+        <member name="T:Neuroglia.K8s.Eventing.Extensions.LongSequenceExtension">
             <summary>
-            Exposes constants about default Neuroglia Kubernetes Eventing resources
+            Represents a long-based <see cref="T:CloudNative.CloudEvents.Extensions.SequenceExtension"/>
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.Broker">
+        <member name="M:Neuroglia.K8s.Eventing.Extensions.LongSequenceExtension.#ctor(System.Nullable{System.Int64})">
             <summary>
-            Gets the 'Broker' CRD
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Extensions.LongSequenceExtension"/>
+            </summary>
+            <param name="sequenceValue">The sequence value</param>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Extensions.LongSequenceExtension.Sequence">
+            <summary>
+            Gets/sets the sequence value
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.Channel">
+        <member name="T:Neuroglia.K8s.Eventing.IController">
             <summary>
-            Gets the 'Channel' CRD
+            Defines the fundamentals of a service used to control a Kubernetes resource of the specified type
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.EventType">
+        <member name="T:Neuroglia.K8s.Eventing.IController`1">
             <summary>
-            Gets the 'EventType' CRD
+            Defines the fundamentals of a service used to control a Kubernetes resource of the specified type
             </summary>
+            <typeparam name="TResource">The type of Kubernetes resource to watch</typeparam>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.EventingDefaults.Resources.Subscription">
-            <summary>
-            Gets the 'Subscription' CRD
-            </summary>
-        </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.Broker">
-            <summary>
-            Represents an instance of a <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerDefinition"/>
-            </summary>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Broker.#ctor">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
-            </summary>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Broker.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.BrokerSpec,Neuroglia.K8s.Eventing.Resources.BrokerStatus)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerSpec"/></param>
-            <param name="status">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerStatus"/></param>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Broker.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.BrokerSpec)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerSpec"/></param>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Broker.#ctor(k8s.Models.V1ObjectMeta)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Broker.#ctor(Neuroglia.K8s.Eventing.Resources.BrokerSpec)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
-            </summary>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerSpec"/></param>
-        </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.BrokerDefinition">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1BrokerDefinition">
             <summary>
             Represents a <see cref="T:Neuroglia.K8s.CustomResourceDefinition"/> used to configure an event broker virtual service
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.Resources.BrokerDefinition.KIND">
+        <member name="F:Neuroglia.K8s.Eventing.Resources.V1BrokerDefinition.KIND">
             <summary>
-            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerDefinition"/>'s kind
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerDefinition"/>'s kind
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.Resources.BrokerDefinition.PLURAL">
+        <member name="F:Neuroglia.K8s.Eventing.Resources.V1BrokerDefinition.PLURAL">
             <summary>
-            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerDefinition"/>'s plural
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerDefinition"/>'s plural
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.BrokerDefinition.#ctor">
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1BrokerDefinition.#ctor">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerDefinition"/>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerDefinition"/>
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.BrokerSpec">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource">
             <summary>
-            Represents the spec of a <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
+            Represents an instance of a <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerDefinition"/>
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.BrokerSpec.Channel">
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1BrokerResource.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1BrokerResource.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.V1BrokerSpec,Neuroglia.K8s.Eventing.Resources.V1BrokerStatus)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerSpec"/></param>
+            <param name="status">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerStatus"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1BrokerResource.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.V1BrokerSpec)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerSpec"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1BrokerResource.#ctor(k8s.Models.V1ObjectMeta)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1BrokerResource.#ctor(Neuroglia.K8s.Eventing.Resources.V1BrokerSpec)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>
+            </summary>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerSpec"/></param>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1BrokerSpec">
+            <summary>
+            Represents the spec of a <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1BrokerSpec.Channel">
             <summary>
             Gets/sets the channel used by the broker
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.BrokerStatus">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1BrokerStatus">
             <summary>
-            Represents the status of a <see cref="T:Neuroglia.K8s.Eventing.Resources.Broker"/>
+            Represents the status of a <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerResource"/>
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.BrokerStatus.Url">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1BrokerStatus.Url">
             <summary>
             Gets the url of the broker's virtual service
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.Channel">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.IV1ChannelEndpoints">
             <summary>
-            Represents an instance of a <see cref="T:Neuroglia.K8s.Eventing.Resources.ChannelDefinition"/>
+            Defines the fundamentals of an object used to configure a channel's endpoints
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Channel.#ctor">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.IV1ChannelEndpoints.Pub">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            Gets/sets the path to the channel's pub endpoint 
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Channel.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.ChannelSpec)">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.IV1ChannelEndpoints.Sub">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.ChannelSpec"/></param>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Channel.#ctor(k8s.Models.V1ObjectMeta)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Channel.#ctor(Neuroglia.K8s.Eventing.Resources.ChannelSpec)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
-            </summary>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.ChannelSpec"/></param>
-        </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.ChannelDefinition">
-            <summary>
-            Represents a <see cref="T:Neuroglia.K8s.CustomResourceDefinition"/> used to configure an event channel
+            Gets/sets the path to the channel's sub endpoint 
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.Resources.ChannelDefinition.KIND">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.IV1ChannelResource`2">
             <summary>
-            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.ChannelDefinition"/>'s kind
+            Defines the fundamentals of a channel <see cref="T:Neuroglia.K8s.ICustomResource"/>
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.Resources.ChannelDefinition.PLURAL">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.IV1ChannelSpec">
             <summary>
-            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.ChannelDefinition"/>'s plural
+            Defines the fundamentals of an <see cref="!:IChannelResource"/> spec
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.ChannelDefinition.#ctor">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.IV1ChannelStatus">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.ChannelDefinition"/>
+            Defines the fundamentals of an <see cref="T:Neuroglia.K8s.Eventing.Resources.IV1ChannelResource`2"/> status
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.ChannelSpec">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.IV1ChannelStatus.Operational">
             <summary>
-            Represents the spec of a <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>
+            Gets/sets a boolean indicating whether or not the channel is operational
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.ChannelSpec.Container">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.IV1ChannelStatus.Address">
             <summary>
-            Gets/sets the <see cref="T:Neuroglia.K8s.Eventing.Resources.Channel"/>'s specification
+            Gets/sets the channel's address
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.EventType">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.IV1ChannelStatus.Endpoints">
             <summary>
-            Represents an instance of an <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/>
+            gets/sets the channel's endpoints
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.EventType.#ctor">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1ChannelEndpoints">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            Represents the object used to configure a channel's endpoints
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.EventType.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.EventTypeSpec)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/></param>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1ChannelEndpoints.Pub">
+            <inheritdoc/>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.EventType.#ctor(k8s.Models.V1ObjectMeta)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1ChannelEndpoints.Sub">
+            <inheritdoc/>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.EventType.#ctor(Neuroglia.K8s.Eventing.Resources.EventTypeSpec)">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1ChannelResource`2">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            Represents the base class for all <see cref="T:Neuroglia.K8s.Eventing.Resources.IV1ChannelResource`2"/> implementations
             </summary>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1ChannelResource`2.#ctor(Neuroglia.K8s.ICustomResourceDefinition)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1ChannelResource`2"/>
+            </summary>
+            <param name="definition">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1ChannelResource`2"/>'s <see cref="T:Neuroglia.K8s.ICustomResourceDefinition"/></param>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1ChannelResource">
+            <summary>
+            Represents a generic <see cref="T:Neuroglia.K8s.Eventing.Resources.V1ChannelResource`2"/> implementation
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1ChannelResource.#ctor(Neuroglia.K8s.ICustomResourceDefinition)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1ChannelResource"/>
+            </summary>
+            <param name="definition">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1ChannelResource"/>'s <see cref="T:Neuroglia.K8s.ICustomResourceDefinition"/></param>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1ChannelSpec">
+            <summary>
+            Represents the base class for all <see cref="T:Neuroglia.K8s.Eventing.Resources.IV1ChannelSpec"/> implementations
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1ChannelStatus">
+            <summary>
+            Represents the object that holds channel status information
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1ChannelStatus.Operational">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1ChannelStatus.Address">
+            <inheritdoc/>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1ChannelStatus.Endpoints">
+            <summary>
+            gets/sets the channel's endpoints
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.EventFilter">
+            <summary>
+            Represents the object used to configure cloud event filtering
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.EventFilter.Attributes">
+            <summary>
+            Gets/sets the key/value pairs of the attributes to filter. The value can be a regular expression.
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventFilter.Matches(CloudNative.CloudEvents.CloudEvent)">
+            <summary>
+            Determines whether or not the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/> matches the <see cref="T:Neuroglia.K8s.Eventing.Resources.EventFilter"/>
+            </summary>
+            <param name="e">The <see cref="T:CloudNative.CloudEvents.CloudEvent"/> to filter</param>
+            <returns>A boolean indicating whether or not the specified <see cref="T:CloudNative.CloudEvents.CloudEvent"/> matches the <see cref="T:Neuroglia.K8s.Eventing.Resources.EventFilter"/></returns>
         </member>
         <member name="T:Neuroglia.K8s.Eventing.Resources.EventTypeDefinition">
             <summary>
@@ -256,12 +381,41 @@
         </member>
         <member name="M:Neuroglia.K8s.Eventing.Resources.EventTypeDefinition.#ctor">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition"/>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition"/>
             </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource">
+            <summary>
+            Represents an instance of an <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventTypeResource.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventTypeResource.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.EventTypeSpec)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventTypeResource.#ctor(k8s.Models.V1ObjectMeta)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.EventTypeResource.#ctor(Neuroglia.K8s.Eventing.Resources.EventTypeSpec)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>
+            </summary>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec"/></param>
         </member>
         <member name="T:Neuroglia.K8s.Eventing.Resources.EventTypeSpec">
             <summary>
-            Represents the spec of a <see cref="T:Neuroglia.K8s.Eventing.Resources.EventType"/>
+            Represents the spec of a <see cref="T:Neuroglia.K8s.Eventing.Resources.EventTypeResource"/>
             </summary>
         </member>
         <member name="P:Neuroglia.K8s.Eventing.Resources.EventTypeSpec.Subject">
@@ -279,120 +433,141 @@
             Gets/sets the event type's source
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.EventTypeSpec.DataSchema">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.EventTypeSpec.Schema">
             <summary>
             Gets/sets the event type's data schema
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.Subscriber">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1StreamSpec">
+            <summary>
+            Represents the spec of a subscription stream
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1StreamSpec.IsDurable">
+            <summary>
+            Gets/sets a boolean indicating whether or not the stream is durable. Defaults to false
+            </summary>
+        </member>
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1StreamSpec.Offset">
+            <summary>
+            Gets/sets the stream offset starting from which to start receiving events.<para></para>
+            If not null, the offset must be strictly superior or equal to 0, with the exception of -1 which indicates the end of the stream.
+            If the offset is null, events will be played starting by the end of the stream.
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1SubscriberSpec">
             <summary>
             Represents the object used to configure a subscriber
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.Subscriber.Uri">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1SubscriberSpec.Url">
             <summary>
-            Gets/sets the subscriber's uri
+            Gets/sets the subscriber's url
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.Subscription">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1SubscriberSpec.DeliveryMode">
             <summary>
-            Represents an instance of a <see cref="T:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition"/>
+            Gets/sets the way events are delivered to the subscriber
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Subscription.#ctor">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>
-            </summary>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Subscription.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.SubscriptionSpec,Neuroglia.K8s.Eventing.Resources.SubscriptionStatus)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec"/></param>
-            <param name="status">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.BrokerStatus"/></param>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Subscription.#ctor(k8s.Models.V1ObjectMeta)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>
-            </summary>
-            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
-        </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.Subscription.#ctor(Neuroglia.K8s.Eventing.Resources.SubscriptionSpec)">
-            <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>
-            </summary>
-            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec"/></param>
-        </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition">
             <summary>
             Represents the <see cref="T:Neuroglia.K8s.CustomResourceDefinition"/> used to configure an event subscription 
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition.KIND">
+        <member name="F:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition.KIND">
             <summary>
-            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition"/>'s kind
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition"/>'s kind
             </summary>
         </member>
-        <member name="F:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition.PLURAL">
+        <member name="F:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition.PLURAL">
             <summary>
-            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition"/>'s plural
+            Gets the <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition"/>'s plural
             </summary>
         </member>
-        <member name="M:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition.#ctor">
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition.#ctor">
             <summary>
-            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.SubscriptionDefinition"/>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition"/>
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec">
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource">
             <summary>
-            Represents the spec of a <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>
+            Represents an instance of a <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionDefinition"/>
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Id">
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource.#ctor">
             <summary>
-            Gets/sets the subscription's id
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Subject">
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource.#ctor(k8s.Models.V1ObjectMeta,Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec,Neuroglia.K8s.Eventing.Resources.V1SubscriptionStatus)">
             <summary>
-            Gets/sets the event subject the subscription applies to
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec"/></param>
+            <param name="status">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.V1BrokerStatus"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource.#ctor(k8s.Models.V1ObjectMeta)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>
+            </summary>
+            <param name="metadata">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>'s <see cref="T:k8s.Models.V1ObjectMeta"/></param>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource.#ctor(Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec)">
+            <summary>
+            Initializes a new <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>
+            </summary>
+            <param name="spec">The <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>'s <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec"/></param>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec">
+            <summary>
+            Represents the spec of a <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Type">
-            <summary>
-            Gets/sets the event type the subscription applies to
-            </summary>
-        </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Source">
-            <summary>
-            Gets/sets the event source the subscription applies to
-            </summary>
-        </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Channel">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec.Channel">
             <summary>
             Gets/sets the name of the channel the subscription is bound to
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.IsDurable">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec.Stream">
             <summary>
-            Gets/sets a boolean indicating whether or not the subscription is durable
+            Gets/sets information about the subscription's cloud event stream
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Position">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec.Filter">
             <summary>
-            Gets/sets a long representing the position in the stream to start reading events from
+            Gets/sets the object used to filter the events to deliver to the subscribers
             </summary>
         </member>
-        <member name="P:Neuroglia.K8s.Eventing.Resources.SubscriptionSpec.Subscriber">
+        <member name="P:Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec.Subscribers">
             <summary>
             Gets/sets an <see cref="T:System.Collections.Generic.IList`1"/> containing the subscription's subscribers
             </summary>
         </member>
-        <member name="T:Neuroglia.K8s.Eventing.Resources.SubscriptionStatus">
+        <member name="M:Neuroglia.K8s.Eventing.Resources.V1SubscriptionSpec.Validate">
             <summary>
-            Represents the status of a <see cref="T:Neuroglia.K8s.Eventing.Resources.Subscription"/>
+            Validates the <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriberSpec"/>
             </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionStatus">
+            <summary>
+            Represents the status of a <see cref="T:Neuroglia.K8s.Eventing.Resources.V1SubscriptionResource"/>
+            </summary>
+        </member>
+        <member name="T:Neuroglia.K8s.Eventing.TaskUtilities">
+            <summary>
+            Defines utilities for <see cref="T:System.Threading.Tasks.Task"/>s
+            </summary>
+        </member>
+        <member name="M:Neuroglia.K8s.Eventing.TaskUtilities.WhenAny``1(System.Collections.Generic.IEnumerable{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}}},System.Func{``0,System.Boolean})">
+            <summary>
+            Waits for the first <see cref="T:System.Threading.Tasks.Task"/> to produce a result that satisfies the specified predicate
+            </summary>
+            <typeparam name="T">The type of expected result</typeparam>
+            <param name="taskFactories">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing the <see cref="T:System.Func`2"/> used to create the <see cref="T:System.Threading.Tasks.Task"/>s to run</param>
+            <param name="predicate">The predicate to match</param>
+            <returns>The first matching result</returns>
         </member>
     </members>
 </doc>

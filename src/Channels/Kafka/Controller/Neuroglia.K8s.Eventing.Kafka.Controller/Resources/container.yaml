@@ -1,0 +1,33 @@
+﻿name: kafka
+image: neuroglia.io/eventing/kafka-channel:1.0
+imagePullPolicy: IfNotPresent
+ports:
+- containerPort: 80
+  name: http
+env:
+  - name: ASPNETCORE_URLS 
+    value: http://+:80
+  - name: POD
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: Kafka__DefaultConsumerGroupId
+    value: cloudevent-channels
+startupProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  failureThreshold: 30
+  periodSeconds: 5
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  failureThreshold: 30
+  periodSeconds: 5
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 3
+  periodSeconds: 3

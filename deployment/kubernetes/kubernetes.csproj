@@ -3,10 +3,14 @@
     <ProjectGuid>{70AD6DAF-ABCE-4FC7-91DA-662B861055C3}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="channels\eventing-channel-kafka.yaml" />
     <None Include="channels\eventing-channel-eventstore.yaml" />
     <None Include="channels\eventing-channel-natss.yaml" />
+    <None Include="crd\event-type.yaml" />
+    <None Include="crd\broker.yaml" />
+    <None Include="crd\kafka\channel.yaml" />
     <None Include="eventing-core.yaml" />
-    <None Include="eventing-crds.yaml" />
+    <None Include="crd\subscription.yaml" />
     <None Include="eventstore.yaml" />
   </ItemGroup>
 </Project>
